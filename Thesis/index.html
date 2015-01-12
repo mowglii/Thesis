@@ -1,0 +1,177 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>My Weight</title>
+
+	<link rel="stylesheet" href="themes/Thesis.css" />
+	<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+	<link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.5.min.css" />
+	<script src="themes/jquery-1.11.1.min.js"></script>
+	<script src="themes/jquery.mobile-1.4.5.min.js"></script>
+
+	<link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+	<link rel="icon" href="img/logo.png" type="image/x-icon">
+	<link rel="stylesheet" href="css/style.css" />
+
+</head>
+<body>
+<form action="index2.html" method="post" name="info" id="info-calculate">
+<!-- PAGE 1 -->
+	<!-- ==========HEADER========== -->	
+	<div data-role="page" id="page1" data-theme="a">
+
+		<!-- ==========CONTENT========== -->	
+		<div data-role="content" data-theme="a" id="content-index">		
+
+			<div id="img-logo">
+				<img src="img/logo-.png">
+			</div>
+			<div class="ui-content">
+				
+				
+					<input type="text" name="weight" id="weight" value="" placeholder="น้ำหนัก" data-icon="scale">
+					<input type="text" name="height" id="height" value="" placeholder="ส่วนสูง">
+					<input type="date" name="birth" id="birth" value="" placeholder="ส่วนสูง">
+
+					<fieldset data-role="controlgroup" data-type="horizontal" data-theme="b" id="gender-radio">
+						<!-- <input type="radio" name="gender" id="img-gender" value="" class="custom disable" disabled>
+					    <label for="img-gender"><img src="img/gender.png"></label> -->
+					    <div class="icon-gender"><img src="img/gender.png"></div>
+					    
+					    <div class="radio-gender">
+						    <input type="radio" name="gender" id="female" value="f" class="custom">
+						    <label for="female">หญิง</label>
+						 
+						    <input type="radio" name="gender" id="male" value="m" class="custom">
+						    <label for="male">ชาย</label>
+					    </div>
+					</fieldset>
+					<a href="#page2" data-role="button" data-iconpos="right" data-icon="carat-r" class="btn_next">ถัดไป</a>
+
+			</div class="ui-content">
+		</div>
+		<!-- end  -->
+	</div>
+
+<!-- PAGE 2 -->
+
+	<!-- ==========HEADER========== -->	
+	<div data-role="page" id="page2" data-theme="a">
+				
+		<div data-role="header" data-position="fixed" data-fullscreen="false" data-add-back-btn="true">				
+			<h1>ข้อมูลพื้นฐาน</h1>
+			<a href="#"  data-rel="back" data-icon="carat-l" data-theme="a" data-iconpos="notext"></a>
+		</div>
+
+		<!-- ==========CONTENT========== -->	
+		<div data-role="content" data-theme="a" id="content">		
+
+			<div class="ui-content">
+
+					<label class="center"><h1>คุณต้องการลดน้ำหนักกี่กิโลกรัม ?</h1></label>
+					<input type="text" name="weight" id="weight_loss" value="" placeholder="ตัวอย่าง : 20 กิโลกรัม" data-icon="scale">
+
+					<a href="#page3" data-role="button" data-iconpos="right" data-icon="carat-r" class="btn_next">ถัดไป</a>
+			</div>	
+		</div>
+	</div>
+
+
+<!-- PAGE 3 -->
+
+	<!-- ==========HEADER========== -->	
+	<div data-role="page" id="page3" data-theme="a">
+				
+		<div data-role="header" data-position="fixed" data-fullscreen="false" data-add-back-btn="true">				
+			<h1>ข้อมูลพื้นฐาน</h1>
+			<a href="#"  data-rel="back" data-icon="carat-l" data-theme="a" data-iconpos="notext"></a>
+		</div>
+
+		<!-- ==========CONTENT========== -->	
+		<div data-role="content" data-theme="a" id="content">		
+
+			<div class="ui-content">
+
+					<label class="center"><h1>คุณออกกำลังกายบ่อยแค่ไหน ใน 1 สัปดาห์ ?</h1></label>
+					<fieldset data-role="controlgroup" data-type="vertical" data-theme="b" id="gender-radio">
+
+					    <input type="radio" name="activity" id="no_ex" value="no_ex" class="custom">
+					    <label for="no_ex">ไม่ออกกำลังกาย - ออกกำลังเล็กน้อย (1 วันต่อสัปดาห์)</label>
+					 
+					    <input type="radio" name="activity" id="light_ex" value="light_ex" class="custom">
+					    <label for="light_ex">ออกกำลังกายเบาๆ (1-2 วัน ต่อสัปดาห์)</label>
+
+					    <input type="radio" name="activity" id="moderate_ex" value="moderate_ex" class="custom">
+					    <label for="moderate_ex">ออกกำลังกายปานกลาง (3-5 วัน ต่อสัปดาห์)	</label>
+					 
+					    <input type="radio" name="activity" id="regularly_ex" value="regularly_ex" class="custom">
+					    <label for="regularly_ex">ออกกำลังกายหนัก (6-7 วันต่อสัปดาห์)</label>
+
+					    <input type="radio" name="activity" id="heavy_ex" value="heavy_ex" class="custom">
+					    <label for="heavy_ex">ออกกำลังกายหนักมาก (เช้า-เย็น 6-7 วันต่อสัปดาห์)		</label>
+
+					</fieldset>
+
+					<a href="#page4" data-role="button" data-iconpos="right" data-icon="carat-r" class="btn_next">ถัดไป</a>
+			</div>	
+		</div>
+	</div>
+
+
+
+<!-- PAGE 4 -->
+
+	<!-- ==========HEADER========== -->	
+	<div data-role="page" id="page4" data-theme="a">
+				
+		<div data-role="header" data-position="fixed" data-fullscreen="false" data-add-back-btn="true">				
+			<h1>ข้อมูลพื้นฐาน</h1>
+			<a href="#"  data-rel="back" data-icon="carat-l" data-theme="a" data-iconpos="notext"></a>
+		</div>
+
+		<!-- ==========CONTENT========== -->	
+		<div data-role="content" data-theme="a" id="content">		
+
+			<div class="ui-content">
+
+					<label class="center"><h1>กรุณาเลือกรูปแบบการลดน้ำหนัก</h1></label>
+					<fieldset data-role="controlgroup" data-type="vertical" data-theme="b" id="gender-radio">
+
+					    <input type="radio" name="mode" id="mode_easy" value="mode_easy" class="custom">
+					    <label for="mode_easy">ง่าย (ลด 0.25 กิโลกรัม ต่อสัปดาห์)</label>
+					 
+					    <input type="radio" name="mode" id="mode_medium" value="mode_medium" class="custom">
+					    <label for="mode_medium">ปานกลาง (ลด 0.5 กิโลกรัม ต่อสัปดาห์)</label>
+
+					    <input type="radio" name="mode" id="mode_hard" value="mode_hard" class="custom">
+					    <label for="mode_hard">ยาก (ลด 0.75 กิโลกรัม ต่อสัปดาห์)	</label>
+					 
+					    <input type="radio" name="mode" id="mode_harder" value="mode_harder" class="custom">
+					    <label for="mode_harder">ยากมาก (ลด 1 กิโลกรัม ต่อสัปดาห์)</label>
+
+					</fieldset>
+
+					<button type="submit" data-iconpos="right" data-icon="check" class="btn_next" id="done">สำเร็จ</button>
+			</div>	
+		</div>
+	</div>
+
+
+
+</form>
+
+
+
+</body>
+</html>
+
+
+<script type="text/javascript">
+	// $( ".disable" ).checkboxradio({
+	//   disabled: false;
+	// });
+
+
+	$("input[type='radio']").checkboxradio('disable');
+</script>
