@@ -38,7 +38,8 @@
             <li><a href="index2.html" class="ui-btn ui-icon-home ui-btn-icon-left" data-transition="slide">หน้าแรก</a></li>
             <li><a href="input_weight.php" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-transition="slide">สมุดบันทึกน้ำหนัก</a></li>
             <li><a href="nutation.php" class="ui-btn ui-icon-pie ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
-            <li><a href="setting.php" class="ui-btn ui-icon-gear ui-btn-icon-left" data-transition="slide">ตั้งค่า</a></li>
+            <li><a href="setting.php" class="ui-btn ui-icon-edit ui-btn-icon-left" data-transition="slide">แก้ไขข้อมูลส่วนตัว</a></li>
+            <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li>
         </ul>
     </div>            
 
@@ -109,7 +110,8 @@ while($exercise = mysqli_fetch_array($result)) {
                     <input type="type" name="user_id" id="add_user_id" style="display:none">
                     <input type="type" name="exer_id" id="add_exer_id" style="display:none" >
                     <input type="type" name="activities_date" id="add_activities_date" style="display:none" >
-                    <input type="time" name="activities_duration" id="add_activities_duration" value="">
+                    
+                    <input type="number" min="0" max="" name="activities_duration" id="add_activities_duration" value="">
                     <button type="submit" class="" data-theme="a">ตกลง</button>
                 </form>
                 

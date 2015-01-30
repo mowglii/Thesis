@@ -38,9 +38,10 @@
     <div data-role="panel" id="listpanel" data-display="push">
         <ul data-role="listview" data-theme="d">
             <li><a href="index2.html" class="ui-btn ui-icon-home ui-btn-icon-left">หน้าแรก</a></li>
-            <li><a href="graphweek" class="ui-btn ui-icon-calendar ui-btn-icon-left">สมุดบันทึกน้ำหนัก</a></li>
-            <li><a href="#" class="ui-btn ui-icon-bullets ui-btn-icon-left">ข้อมูลสารอาหาร</a></li>
-            <li><a href="#" class="ui-btn ui-icon-gear ui-btn-icon-left">ตั้งค่า</a></li>
+            <li><a href="graphweek.php" class="ui-btn ui-icon-calendar ui-btn-icon-left">สมุดบันทึกน้ำหนัก</a></li>
+            <li><a href="nutatuion.php" class="ui-btn ui-icon-bullets ui-btn-icon-left">ข้อมูลสารอาหาร</a></li>
+            <li><a href="setting.php" class="ui-btn ui-icon-edit ui-btn-icon-left" data-transition="slide">แก้ไขข้อมูลส่วนตัว</a></li>
+            <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li>
         </ul>
     </div>          
 

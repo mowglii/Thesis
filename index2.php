@@ -6,10 +6,12 @@
     require('dbsaveinfo.php');
     require('dbsaveeatting.php');
     require('dbsaveactivities.php');
-    
+
     require('dbfinduserid.php');
     require('dbshoweatting.php');
     require('dbshowactivities.php');
+
+    require('calculate.php');
 
 ?>
 
@@ -39,7 +41,8 @@
             <li><a href="index2.php" class="ui-btn ui-icon-home ui-btn-icon-left" data-transition="slide">หน้าแรก</a></li>
             <li><a href="input_weight.php" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-transition="slide">สมุดบันทึกน้ำหนัก</a></li>
             <li><a href="nutation.php" class="ui-btn ui-icon-pie ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
-            <li><a href="setting.php" class="ui-btn ui-icon-gear ui-btn-icon-left" data-transition="slide">ตั้งค่า</a></li>
+            <li><a href="setting.php" class="ui-btn ui-icon-edit ui-btn-icon-left" data-transition="slide">แก้ไขข้อมูลส่วนตัว</a></li>
+            <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li>
         </ul>
     </div>          
 
@@ -63,28 +66,35 @@
 
     <div data-role="header"  >
         <div>  
-            <?php  
+            <?php 
+                $step1 = intval($cal_max) ;
+                $step2 = intval($cal_max/3) ;
+                $step3 = intval($cal_max/2) ;
+
+                // echo $step1."<br>".$step2."<br>".$step3;
+
                 while($kcal = mysqli_fetch_array($result_allcal)) { 
 
                     // Set bar color
                     $cal   = intval($kcal["sum(food.food_kcal)"]);
                     $barColor = "progressbar-green";
-                    if ($cal >= 1900) {
+                    if ($cal >= $step1) {
                         $barColor = "progressbar-red";
                     }
-                    elseif ($cal >= 1700) {
+                    elseif ($cal >= $step2) {
                         $barColor = "progressbar-orange";
                     }
-                    elseif ($cal >= 1500) {
+                    elseif ($cal >= $step3) {
                         $barColor = "progressbar-yellow";
                     }
 
                     // Set bar width
-                    $maxCal = 2100;
-                    $barWidth = intval( ($cal*100)/$maxCal );
+
+                    $barWidth = intval( ($cal*100)/$cal_max );
                     if ($barWidth > 100) {
                         $barWidth = 100;
                     }
+                   
 
             ?>
                 <div class="progressbar <?= $barColor ?>">
@@ -104,8 +114,8 @@
     <div data-role="header" >
         <div data-role="navbar" data-position="fixed" data-fullscreen="true" data-id="mynav" id="btn_white">
             <ul id="section">
-                <li><a href="#" data-iconpos="top"><img src="img/min.png" ><br>Min</a></li>
-                <li><a href="#" data-iconpos="top"><img src="img/max.png" ><br>Max</a></li>
+                <li><a href="#" data-iconpos="top"><img src="img/min.png" ><br>Min : <?=  $cal_min ?></a></li>
+                <li><a href="#" data-iconpos="top"><img src="img/max.png" ><br>Max : <?=  $cal_max ?></a></li>
             </ul>
         </div>    
     </div>
@@ -145,7 +155,7 @@
                     ?>
                                 <tr>
                                     <td class="left"><?= $food["food_name"]; ?></td>
-                                    <td>1 ชิ้น</td>
+                                    <td>1 จาน</td>
                                     <td><?= $food["food_weight"]; ?> กรัม</td>
                                     <td class="right"><b><?= $food["food_kcal"]; ?> kcal</b></td>
                                 </tr>
@@ -167,7 +177,7 @@
                 <thead><tr></tr></thead>
                 <tbody>
                     <?php
-                        while($food = mysqli_fetch_array($result_eating2)) {
+                        while($food = mysqli_fetch_array($result_eating1)) {
                             if ($food["eating_meal"] == 1 && $food["eating_date"] == $now) {
                     ?>
                                 <tr>
@@ -195,7 +205,7 @@
                 <thead><tr></tr></thead>
                 <tbody>
                     <?php
-                        while($food = mysqli_fetch_array($result_eating3)) {
+                        while($food = mysqli_fetch_array($result_eating2)) {
                             if ($food["eating_meal"] == 2 && $food["eating_date"] == $now) {
                     ?>
                                 <tr>
@@ -213,36 +223,6 @@
             </table>
             <!-- End DINNER TABLE -->
 
-
-            <!-- <div class="head-table-custom margin-top-25">
-                <div>อื่นๆ</div>
-                <a href="#" data-role="button" data-icon="plus" data-iconpos="notext"></a>
-                <span class="clearfix"></span>
-            </div>
-            <table data-role="table" class="ui-table table-custom" id="tb_each">
-                <thead><tr></tr></thead>
-                <tbody>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                </tbody>
-            </table> -->
-            <!-- End EACH TABLE -->
         </div>
         <!-- End FOOD -->
 
@@ -260,14 +240,14 @@
                 <thead><tr></tr></thead>
                 <tbody>
                     <?php
-                        while($acti = mysqli_fetch_array($result_activities)) {
-                            if ($acti["activities_date"] == $now) {
+                        while($activity = mysqli_fetch_array($result_activities)) {
+                            if ($activity["activities_date"] == $now) {
                     ?>
 
                         <tr>
-                            <td class="left"><?= $acti["exer_name"] ?></td>
-                            <td><?= $acti["activities_duration"] ?></td>
-                            <td class="right"><b><?= $acti["exer_kcal"] ?> kcal</b></td>
+                            <td class="left"><?= $activity["exer_name"] ?></td>
+                            <td><?= $activity["activities_duration"] ?> นาที</td>
+                            <td class="right"><b><?= $activity["exer_kcal"] ?> kcal</b></td>
                         </tr>
 
                     <?php
@@ -283,391 +263,14 @@
 </div>
 
 <!-- PAGE 1 -->
-<div id="page1" data-role="page" data-theme="a">
-    <div data-role="panel" id="listpanel" data-display="push">
-        <ul data-role="listview" data-theme="b">
-            <li><a href="index2.html">หน้าแรก</a></li>
-            <li><a href="#">สมุดบันทึกน้ำหนัก</a></li>
-            <li><a href="#">ข้อมูลสารอาหาร</a></li>
-            <li><a href="#">ตั้งค่า</a></li>
-        </ul>
-    </div>          
-
-    <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
-        <h1>MY WEIGHT</h1>
-        <a href="#listpanel" data-icon="bars" data-iconpos="notext"></a>
-        
-    </div>
-    <!-- End TOP MENU BAR -->
-
-    <div data-role="header" >
-        <div data-role="navbar" data-position="fixed" data-fullscreen="true" data-id="mynav" id="btn_black">
-            <ul>
-                <li><a href="#page1"  class="ui-btn-active">เมื่อวาน</a></li>
-                <li><a href="#page2" >วันนี้</a></li>
-                <li><a href="#page3" >พรุ่งนี้</a></li>
-            </ul>
-        </div>    
-    </div> 
-    <!-- End DAY BAR -->
-
-    <div data-role="header"  >
-        <div>  
-            <div class="progressbar progressbar-orange">
-                <div class="progressbar-inner"><h1 class="kcal-show">1750 kcal</h1></div>
-
-            </div>
-        </div>
-    </div>
-    <!-- End PROGRESS BAR -->
-
-    <div data-role="header" >
-        <div data-role="navbar" data-position="fixed" data-fullscreen="true" data-id="mynav" id="btn_white">
-            <ul id="section">
-                <li><a href="#" data-iconpos="top"><img src="img/min.png" ><br>Min</a></li>
-                <li><a href="#" data-iconpos="top"><img src="img/max.png" ><br>Max</a></li>
-            </ul>
-        </div>    
-    </div>
-    <!-- End MIN & MAX  -->
-
-    <div data-role="header" >
-        <div data-role="navbar" data-position="fixed" data-fullscreen="true" data-id="mynav" id="btn_black">
-            <ul id="section">
-                <li><a href="#page_food" class="ui-btn-active" >อาหาร</a></li>
-                <li><a href="#page_ex" >ออกกำลังกาย</a></li>
-            </ul>
-        </div>    
-    </div>
-    <!-- End FOOD & EXERCISE MENU -->
 
 
-    <div data-role="content" >
-
-        <div>
-            <div class="head-table-custom">
-                <div>อาหารเช้า</div>
-                <a href="#" data-role="button" data-icon="plus" data-iconpos="notext"></a>
-                <span class="clearfix"></span>
-            </div>
-            <table data-role="table" class="ui-table table-custom" id="tb_brakefast">
-                <thead><tr></tr></thead>
-                <tbody>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                        <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- End BRAKEFAST TABLE -->
-
-            <div class="head-table-custom margin-top-25">
-                <div>อาหารกลางวัน</div>
-                <a href="#" data-role="button" data-icon="plus" data-iconpos="notext"></a>
-                <span class="clearfix"></span>
-            </div>
-            <table data-role="table" class="ui-table table-custom" id="tb_lunch">
-                <thead><tr></tr></thead>
-                <tbody>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- End LUNCH TABLE -->
-
-
-            <div class="head-table-custom margin-top-25">
-                <div>อาหารเย็น</div>
-                <a href="#" data-role="button" data-icon="plus" data-iconpos="notext"></a>
-                <span class="clearfix"></span>
-            </div>
-            <table data-role="table" class="ui-table table-custom" id="tb_dinner">
-                <thead><tr></tr></thead>
-                <tbody>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- End DINNER TABLE -->
-
-
-            <div class="head-table-custom margin-top-25">
-                <div>อื่นๆ</div>
-                <a href="#" data-role="button" data-icon="plus" data-iconpos="notext"></a>
-                <span class="clearfix"></span>
-            </div>
-            <table data-role="table" class="ui-table table-custom" id="tb_each">
-                <thead><tr></tr></thead>
-                <tbody>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- End EACH TABLE -->
-        </div>
-        <!-- End FOOD -->
-
-        <div>
-
-        </div>
-        <!-- End EXERCISE -->
-    </div>
     
 </div>
 
 
 <!-- PAGE 3 -->
-<div id="page3" data-role="page" data-theme="a">
-    <div data-role="panel" id="listpanel" data-display="push">
-        <ul data-role="listview" data-theme="b">
-            <li><a href="index2.html">หน้าแรก</a></li>
-            <li><a href="#">สมุดบันทึกน้ำหนัก</a></li>
-            <li><a href="#">ข้อมูลสารอาหาร</a></li>
-            <li><a href="#">ตั้งค่า</a></li>
-        </ul>
-    </div>          
 
-    <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
-        <h1>MY WEIGHT</h1>
-        <a href="#listpanel" data-icon="bars" data-iconpos="notext"></a>
-        
-    </div>
-    <!-- End TOP MENU BAR -->
-
-    <div data-role="header" >
-        <div data-role="navbar" data-position="fixed" data-fullscreen="true" data-id="mynav" id="btn_black">
-            <ul>
-                <li><a href="#page1" >เมื่อวาน</a></li>
-                <li><a href="#page2"  >วันนี้</a></li>
-                <li><a href="#page3" class="ui-btn-active" >พรุ่งนี้</a></li>
-            </ul>
-        </div>    
-    </div> 
-    <!-- End DAY BAR -->
-
-    <div data-role="header"  >
-        <div>  
-            <div class="progressbar progressbar-orange">
-                <div class="progressbar-inner"><h1 class="kcal-show">1750 kcal</h1></div>
-
-            </div>
-        </div>
-    </div>
-    <!-- End PROGRESS BAR -->
-
-    <div data-role="header" >
-        <div data-role="navbar" data-position="fixed" data-fullscreen="true" data-id="mynav" id="btn_white">
-            <ul id="section">
-                <li><a href="#" data-iconpos="top"><img src="img/min.png" ><br>Min</a></li>
-                <li><a href="#" data-iconpos="top"><img src="img/max.png" ><br>Max</a></li>
-            </ul>
-        </div>    
-    </div>
-    <!-- End MIN & MAX  -->
-
-    <div data-role="header" >
-        <div data-role="navbar" data-position="fixed" data-fullscreen="true" data-id="mynav" id="btn_black">
-            <ul id="section">
-                <li><a href="#page_food" class="ui-btn-active" >อาหาร</a></li>
-                <li><a href="#page_ex" >ออกกำลังกาย</a></li>
-            </ul>
-        </div>    
-    </div>
-    <!-- End FOOD & EXERCISE MENU -->
-
-
-    <div data-role="content" >
-        <div>
-            <div class="head-table-custom">
-                <div>อาหารเช้า</div>
-                <a href="#" data-role="button" data-icon="plus" data-iconpos="notext"></a>
-                <span class="clearfix"></span>
-            </div>
-            <table data-role="table" class="ui-table table-custom" id="tb_brakefast">
-                <thead><tr></tr></thead>
-                <tbody>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                        <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- End BRAKEFAST TABLE -->
-
-            <div class="head-table-custom margin-top-25">
-                <div>อาหารกลางวัน</div>
-                <a href="#" data-role="button" data-icon="plus" data-iconpos="notext"></a>
-                <span class="clearfix"></span>
-            </div>
-            <table data-role="table" class="ui-table table-custom" id="tb_lunch">
-                <thead><tr></tr></thead>
-                <tbody>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- End LUNCH TABLE -->
-
-
-            <div class="head-table-custom margin-top-25">
-                <div>อาหารเย็น</div>
-                <a href="#" data-role="button" data-icon="plus" data-iconpos="notext"></a>
-                <span class="clearfix"></span>
-            </div>
-            <table data-role="table" class="ui-table table-custom" id="tb_dinner">
-                <thead><tr></tr></thead>
-                <tbody>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- End DINNER TABLE -->
-
-
-            <div class="head-table-custom margin-top-25">
-                <div>อื่นๆ</div>
-                <a href="#" data-role="button" data-icon="plus" data-iconpos="notext"></a>
-                <span class="clearfix"></span>
-            </div>
-            <table data-role="table" class="ui-table table-custom" id="tb_each">
-                <thead><tr></tr></thead>
-                <tbody>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                    <tr>
-                        <td class="left">ขนมปังสังขยา</td>
-                        <td>1 ชิ้น</td>
-                         <td>200 กรัม</td>
-                        <td class="right"><b>230 kcal</b></td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- End EACH TABLE -->
-        </div>
-        <!-- End FOOD -->
-
-
-    </div>
-    
-</div>
 
 
 </body>

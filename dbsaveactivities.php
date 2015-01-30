@@ -3,11 +3,12 @@
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	if ( $_POST["user_id"] != "" && $_POST["exer_id"] != "" && $_POST["activities_date"] != "" && $_POST["activities_duration"] != "") {
-		$u = intval($_POST["user_id"]);
-		$e = intval($_POST["exer_id"]);
+		$user_id = intval($_POST["user_id"]);
+		$exer_id = intval($_POST["exer_id"]);
+		$activities_duration = intval($_POST["activities_duration"]);
 
 	    $add_exer_sql = 'INSERT INTO activities (user_id, exer_id, activities_date, activities_duration)
-	    					VALUES (' . $u . ', ' . $e . ', "' . $_POST["activities_date"]. '", "' . $_POST["activities_date"]. '")';
+	    					VALUES (' . $user_id . ', ' . $exer_id . ', "' . $_POST["activities_date"]. '", ' . $activities_duration . ')';
 	    $result_add_exer = mysqli_query($dbconnect,$add_exer_sql);
 		// echo $add_eatting_sql;
 

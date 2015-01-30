@@ -188,7 +188,9 @@ input, #page_ex .ui-input-search {
 
 
 
-
+#food_meal .ui-listview .ui-li-aside {
+	top: 0.8em;
+}
 #food_meal .ui-icon-delete {
 	background: #f05053 !important;
 }
@@ -198,6 +200,10 @@ input, #page_ex .ui-input-search {
 #food_meal li{
 	line-height: 1em !important;
 }
+#food_meal .food_name_width {
+	width: 50%;
+}
+
 #food_meal .ui-input-search{
 	background: #fff;
 	margin: 0em ;

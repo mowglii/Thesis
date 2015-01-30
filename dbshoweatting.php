@@ -35,7 +35,7 @@
                        WHERE eating.user_id=' . $_SESSION["user_id"] . ' AND (eating.eating_date = "' . $now . '"   ' . ' OR eating.eating_date = "' . $yesterday . '" ' . ' OR eating.eating_date = "' . $tomorrow . '") ';
 
   $result_eating  = mysqli_query($dbconnect,$eating_sql);
+  $result_eating1  = mysqli_query($dbconnect,$eating_sql);
   $result_eating2  = mysqli_query($dbconnect,$eating_sql);
-  $result_eating3  = mysqli_query($dbconnect,$eating_sql);
 
 ?>

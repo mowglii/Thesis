@@ -13,3 +13,4 @@
   	$result_activities  = mysqli_query($dbconnect,$activities_sql);
 
 ?>
+
