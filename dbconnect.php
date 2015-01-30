@@ -3,9 +3,9 @@
 	$servername = "localhost";
 
 	// localhost
-	// $username = "root";
-	// $password = "";
-	// $dbname = "thesis";
+	$username = "root";
+	$password = "";
+	$dbname = "thesis";
 
 	// host div.in.th
 	// $username = "divinth_thesis";
@@ -13,9 +13,9 @@
 	// $dbname = "divinth_thesis";
 
 	// host su13540215
-	$username = "usmfngag";
-	$password = "x8rD1Hdk64";
-	$dbname = "usmfngag_blogWP";
+	// $username = "usmfngag";
+	// $password = "x8rD1Hdk64";
+	// $dbname = "usmfngag_blogWP";
 
 	
 	// Create connection
