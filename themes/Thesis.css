@@ -789,9 +789,8 @@ html .ui-body-d .ui-btn:visited,
 html body .ui-group-theme-d .ui-btn:visited,
 html head + body .ui-btn.ui-btn-d:visited {
 	background-color: #333 /*{d-bup-background-color}*/;
-	border-color: #dddddd /*{d-bup-border}*/;
-	color: #333333 /*{d-bup-color}*/;
-	text-shadow: 0 /*{d-bup-shadow-x}*/ 1px /*{d-bup-shadow-y}*/ 0 /*{d-bup-shadow-radius}*/ #f3f3f3 /*{d-bup-shadow-color}*/;
+	border-color: #666 /*{d-bup-border}*/;
+	color: #eeeeee /*{d-bup-color}*/;
 }
 /* Button hover */
 .ui-page-theme-d .ui-btn:hover,
@@ -799,10 +798,9 @@ html .ui-bar-d .ui-btn:hover,
 html .ui-body-d .ui-btn:hover,
 html body .ui-group-theme-d .ui-btn:hover,
 html head + body .ui-btn.ui-btn-d:hover {
-	background-color: #ededed /*{d-bhover-background-color}*/;
-	border-color: #dddddd /*{d-bhover-border}*/;
-	color: #333333 /*{d-bhover-color}*/;
-	text-shadow: 0 /*{d-bhover-shadow-x}*/ 1px /*{d-bhover-shadow-y}*/ 0 /*{d-bhover-shadow-radius}*/ #f3f3f3 /*{d-bhover-shadow-color}*/;
+	background-color: #004853 /*{d-bhover-background-color}*/;
+	border-color: #666 /*{d-bhover-border}*/;
+	color: #eeeeee /*{d-bhover-color}*/;
 }
 /* Button down */
 .ui-page-theme-d .ui-btn:active,
@@ -811,9 +809,8 @@ html .ui-body-d .ui-btn:active,
 html body .ui-group-theme-d .ui-btn:active,
 html head + body .ui-btn.ui-btn-d:active {
 	background-color: #333 /*{d-bdown-background-color}*/;
-	border-color: #dddddd /*{d-bdown-border}*/;
-	color: #333333 /*{d-bdown-color}*/;
-	text-shadow: 0 /*{d-bdown-shadow-x}*/ 1px /*{d-bdown-shadow-y}*/ 0 /*{d-bdown-shadow-radius}*/ #f3f3f3 /*{d-bdown-shadow-color}*/;
+	border-color: #666 /*{d-bdown-border}*/;
+	color: #eeeeee /*{d-bdown-color}*/;
 }
 /* Active button */
 .ui-page-theme-d .ui-btn.ui-btn-active,
@@ -842,7 +839,6 @@ html body div.ui-slider-track.ui-body-d .ui-btn-active {
 	background-color: #00cdc6 /*{d-active-background-color}*/;
 	border-color: #00cdc6 /*{d-active-border}*/;
 	color: #ffffff /*{d-active-color}*/;
-	text-shadow: 0 /*{d-active-shadow-x}*/ 0 /*{d-active-shadow-y}*/ 0 /*{d-active-shadow-radius}*/ #005599 /*{d-active-shadow-color}*/;
 }
 /* Active radio button icon */
 .ui-page-theme-d .ui-radio-on:after,

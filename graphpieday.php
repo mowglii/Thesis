@@ -34,7 +34,7 @@
     <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
         <h1>MY WEIGHT</h1>
         <a href="#listpanel" data-icon="bars" data-iconpos="notext" class="ui-btn-left"></a>
-        <button data-icon="bullets" data-iconpos="notext" class="ui-btn-right"></button>
+        <a href="nutation.php" class="ui-btn ui-icon-bullets ui-btn-icon-notext"></a>
 
         
     </div>
@@ -44,35 +44,17 @@
     <div data-role="content" style="background:#fff;">
         <div class="header-graph">
             <div data-role="controlgroup" data-type="horizontal">
-                <a href="graphday.html" data-role="button" class="no-active">Day</a>
-                <a href="#" data-role="button">Week</a>
-                <a href="graphmonth.html" data-role="button" class="no-active">Month</a>
+                <a href="graphpieday.html" data-role="button">Day</a>
+                <a href="#"class="no-active" data-role="button">Week</a>
+
             </div>
         </div>
         <div class="graph">
-            <canvas id="canvas" height="300" width="450"></canvas>
+            <canvas id="canvas" height="300" width="300"></canvas>
         </div>
         
     </div>
 
-
-    <div data-role="footer" class="graph-footer" data-position="fixed">
-        <div>
-            <p>เป้าหมาย</p>
-            <h1>57</h1>
-            <p>กก.</p>
-        </div>
-        <div>
-            <p>ปัจจุบัน</p>
-            <h1>75</h1>
-            <p>กก.</p>
-        </div>
-        <div>
-            <p>เหลือเวลา</p>
-            <h1>92</h1>
-            <p>วัน</p>
-        </div>
-    </div>
 
 </div>
 
@@ -82,28 +64,44 @@
 
 
 <script>
-var lineChartData = {
-    labels : ["14 - 20 ตค.","21 - 27 ตค.","28 - 3 พย.","4 - 10 พย.","11 - 17 พย.","18 - 24 พย."],
-    datasets : [
-        {
-            label: "My First dataset",
-            fillColor : "rgba(0,0,0,0)",
-            strokeColor : "#00bab9",
-            pointColor : "#00bab9",
-            pointStrokeColor : "#00bab9",
-            pointHighlightFill : "#fe4e51",
-            pointHighlightStroke : "#fe4e51",
-            data : [87,85,84,80,78,76]
-        }
-    ]
+var pieData = [
+                {
+                    value: 300,
+                    color:"#F7464A",
+                    highlight: "#FF5A5E",
+                    label: "Red"
+                },
+                {
+                    value: 50,
+                    color: "#46BFBD",
+                    highlight: "#5AD3D1",
+                    label: "Green"
+                },
+                {
+                    value: 100,
+                    color: "#FDB45C",
+                    highlight: "#FFC870",
+                    label: "Yellow"
+                },
+                {
+                    value: 40,
+                    color: "#949FB1",
+                    highlight: "#A8B3C5",
+                    label: "Grey"
+                },
+                {
+                    value: 120,
+                    color: "#4D5360",
+                    highlight: "#616774",
+                    label: "Dark Grey"
+                }
 
-}
+            ];
 
-$(document).bind( "pageinit", function() {
-  var chart = document.getElementById("canvas").getContext("2d");
-    window.myLine = new Chart(chart).Line(lineChartData, {
-            
-        bezierCurveTension : 0,
-    });
-});
+            window.onload = function(){
+                var ctx = document.getElementById("chart-area").getContext("2d");
+                window.myPie = new Chart(ctx).Pie(pieData);
+            };
+
+
 </script>

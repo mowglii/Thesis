@@ -34,7 +34,7 @@
     <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
         <h1>MY WEIGHT</h1>
         <a href="#listpanel" data-icon="bars" data-iconpos="notext" class="ui-btn-left"></a>
-        <button data-icon="bullets" data-iconpos="notext" class="ui-btn-right"></button>
+         <a href="input_weight.php" class="ui-btn ui-icon-calendar ui-btn-icon-notext"></a>
 
         
     </div>
@@ -44,7 +44,6 @@
     <div data-role="content" style="background:#fff;">
         <div class="header-graph">
             <div data-role="controlgroup" data-type="horizontal">
-                <a href="graphday.html" data-role="button" class="no-active">Day</a>
                 <a href="graphweek.html" data-role="button" class="no-active">Week</a>
                 <a href="#" data-role="button">Month</a>
             </div>
@@ -82,28 +81,32 @@
 
 
 <script>
-var lineChartData = {
-    labels : ["14 - 20 ตค.","21 - 27 ตค.","28 - 3 พย.","4 - 10 พย.","11 - 17 พย.","18 - 24 พย."],
-    datasets : [
-        {
-            label: "My First dataset",
-            fillColor : "rgba(0,0,0,0)",
-            strokeColor : "#00bab9",
-            pointColor : "#00bab9",
-            pointStrokeColor : "#00bab9",
-            pointHighlightFill : "#fe4e51",
-            pointHighlightStroke : "#fe4e51",
-            data : [87,85,84,80,78,76]
-        }
-    ]
+var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
 
-}
+    var barChartData = {
+        labels : ["month1","month2","month3","month4","month5"],
+        datasets : [
+            {
+                fillColor : "#f05053",
+                strokeColor : "#f05053",
+                highlightFill: "#f05053",
+                highlightStroke: "#f05053",
+                data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+            },
+            {
+                fillColor : "#00cdc6",
+                strokeColor : "#00cdc6",
+                highlightFill : "#00cdc6",
+                highlightStroke : "#00cdc6",
+                data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+            }
+        ]
 
-$(document).bind( "pageinit", function( ) {
-  var chart = document.getElementById("canvas").getContext("2d");
-    window.myLine2 = new Chart(chart).Line(lineChartData, {
-            
-        bezierCurveTension : 0,
-    });
-});
-</script>
+    }
+    window.onload = function(){
+        var ctx = document.getElementById("canvas").getContext("2d");
+        window.myBar = new Chart(ctx).Bar(barChartData, {
+            responsive : true
+        });
+    }
+

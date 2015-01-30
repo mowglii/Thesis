@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MyWeight</title>
+	<meta charset="utf8">
+</head>
+<body>
+	<div class="inputFrom">
+		<label for="sex">Sex</label>
+		<input type="radio" id="sex_1" name="sex" value="m">Male
+		<input type="radio" id="sex_2" name="sex" value="f">Female<br>
+		
+		<label for="date">Birth day</label>
+		<input type="date" id="date" name="date"><br>
+
+		<label for="weight">weight</label>
+		<input type="text" id="weight" name="weight"><br>
+		
+		<label for="height">height</label>
+		<input type="text" id="height" name="height"><br>
+
+		<label for="exercise">Exercise frequency</label><br>
+		<input type="radio" id="exercise_1" name="exercise" value="1.2">ไม่ออกกำลังกาย - ออกกำลังเล็กน้อย ต่อสัปดาห์<br>
+		<input type="radio" id="exercise_2" name="exercise" value="1.375">ออกกำลังกายเบาๆ (1-2 วัน ต่อสัปดาห์)<br>
+		<input type="radio" id="exercise_3" name="exercise" value="1.55">ออกกำลังกายปานกลาง (3-5 วัน ต่อสัปดาห์)<br>
+		<input type="radio" id="exercise_4" name="exercise" value="1.725">ออกกำลังกายมาก (6-7 วันต่อสัปดาห์)<br>
+		<input type="radio" id="exercise_5" name="exercise" value="1.9">ออกกำลังกายหนัก (เช้า-เย็น 6-7 วันต่อสัปดาห์)<br>
+
+		<br><br>
+		
+		<label for="goalweight">weight lose</label>
+		<input type="text" id="goalweight" name="goalweight"><br>
+
+		<label for="mode">Mode</label><br>
+		<input type="radio" id="mode_1" name="mode" value="0.25">Easy<br>
+		<input type="radio" id="mode_2" name="mode" value="0.5">Medium<br>
+		<input type="radio" id="mode_3" name="mode" value="0.75">Hard<br>
+		<input type="radio" id="mode_4" name="mode" value="1">Very Hard<br>
+
+
+		<button type="submit" id="calulate_btn">Calulate</button>
+	</div>
+
+	<div class="outputFrom">
+		<p>BMI <span id="bmi"></span></p>
+		<p>BMR <span id="bmr"></span></p>
+		<p>แคลอรี่สมควรได้รับ/วัน <span id="calorie"></span></p>
+		<br>
+		<p>แคลอรี่อย่างต่ำ/วัน <span id="calorie_min"></span></p>
+		<p>แคลอรี่อย่างมาก/วัน <span id="calorie_max"></span></p>
+		<p>ใช้เวลาทั้งหมด <span id="time_month"></span>เดือน <span id="time_day"></span> วัน</p>
+	</div>
+
+	<script>
+		document.getElementById("calulate_btn").onclick = function(){
+			// Get value
+			var sex 		= 0,
+				bdath 		= document.getElementById("date").value,
+				dateNow 	= new Date(),
+				dateC		= dateNow.getFullYear() + "-" + (dateNow.getMonth()+1) + "-" + dateNow.getDate(),
+				age			= dateDiff(bdath, dateC),
+				weight 		= document.getElementById("weight").value,
+				height 		= document.getElementById("height").value,
+				frequency 	= 0,
+				goal 		= document.getElementById("goalweight").value,
+				mode 		= 0;
+
+			// Sex
+			if(document.getElementById("sex_1").checked){
+				sex = document.getElementById("sex_1").value;
+			}
+			else if(document.getElementById("sex_2").checked){
+				sex = document.getElementById("sex_2").value;
+			}
+			// frequency
+			if(document.getElementById("exercise_1").checked){
+				frequency = document.getElementById("exercise_1").value;
+			}
+			else if(document.getElementById("exercise_2").checked){
+				frequency = document.getElementById("exercise_2").value;
+			}
+			else if(document.getElementById("exercise_3").checked){
+				frequency = document.getElementById("exercise_3").value;
+			}
+			else if(document.getElementById("exercise_4").checked){
+				frequency = document.getElementById("exercise_4").value;
+			}
+			else if(document.getElementById("exercise_5").checked){
+				frequency = document.getElementById("exercise_5").value;
+			}
+			// Mode
+			if(document.getElementById("mode_1").checked){
+				mode = document.getElementById("mode_1").value;
+			}
+			else if(document.getElementById("mode_2").checked){
+				mode = document.getElementById("mode_2").value;
+			}
+			else if(document.getElementById("mode_3").checked){
+				mode = document.getElementById("mode_3").value;
+			}
+			else if(document.getElementById("mode_4").checked){
+				mode = document.getElementById("mode_4").value;
+			}
+
+
+			// Calculate
+			var bmi 			= weight/((height/100)*(height/100)),
+				bmr 			= 0,
+				calorie 		= 0,
+				calorie_min 	= 0,
+				calorie_max 	= 0,
+				time 			= 0,
+				time_month 		= 0,
+				time_day		= 0;
+
+			// BMR
+			if(sex == "m") {
+				bmr = (weight*13.75)+(height*0.003)-(6.755*age)+66.5;
+			}
+			else if(sex == "f") {
+				bmr = (weight*9.563)+(height*1.85)-(4.676*age)+665.1;
+			}
+			// calorie
+			calorie = bmr*frequency;
+			// calorie_min & calorie_max
+			if(mode == 0.25) {
+				calorie_min = 1200;
+			}
+			else if(mode == 0.5) {
+				calorie_min = 1000;
+			}
+			else if(mode == 0.75) {
+				calorie_min = 800;
+			}
+			else if(mode == 1) {
+				calorie_min = 800;
+			}
+			calorie_max = calorie-(mode*7700/7);
+
+			// time
+
+			time = parseInt(goal/(mode/7));
+			time_month = parseInt(time/30);
+			time_day = time-(time_month*30);
+
+
+
+			// Output
+			document.getElementById("bmi").innerHTML = bmi;
+			document.getElementById("bmr").innerHTML = bmr;
+			document.getElementById("calorie").innerHTML = calorie;
+			document.getElementById("calorie_min").innerHTML = calorie_min;
+			document.getElementById("calorie_max").innerHTML = calorie_max;
+			document.getElementById("time_month").innerHTML = time_month;
+			document.getElementById("time_day").innerHTML = time_day;
+		};
+
+		function dateDiff(myVar2, myVar1){
+
+			// var myVar1 = document.getElementById('date1').value;//prompt("Enter a start date: ")
+			// var myVar2 = document.getElementById('date2').value;//prompt("Enter a end date: ")
+
+			var first_date = Date.parse(myVar1);
+			var last_date = Date.parse(myVar2);
+			var diff_date =  first_date - last_date;
+
+			var num_years = diff_date/31557600000;
+			var num_months = (diff_date % 31557600000)/2629800000;
+			var num_days = ((diff_date % 31557600000) % 2629800000)/86400000;
+
+			// var result ="";
+
+			// result +=(" " + Math.floor(num_years) + " ปี\n");
+			// result +=(" " + Math.floor(num_months) + " ดือน\n");
+			// result +=(" " + Math.floor(num_days) + " วัน");
+			
+			return Math.floor(num_years);
+		}
+	</script>
+</body>
+</html>

@@ -19,8 +19,10 @@
 </head>
 <body>
 
-<!-- PAGE DAY -->
-<divdata-role="page" data-theme="a"> 
+
+<!-- PAGE WEEK -->
+<div data-role="page" data-theme="a">      
+
     <div data-role="panel" id="listpanel" data-display="push">
         <ul data-role="listview" data-theme="b">
             <li><a href="index2.html">หน้าแรก</a></li>
@@ -28,12 +30,12 @@
             <li><a href="#">ข้อมูลสารอาหาร</a></li>
             <li><a href="#">ตั้งค่า</a></li>
         </ul>
-    </div>         
-
+    </div>    
     <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
         <h1>MY WEIGHT</h1>
         <a href="#listpanel" data-icon="bars" data-iconpos="notext" class="ui-btn-left"></a>
-        <button data-icon="bullets" data-iconpos="notext" class="ui-btn-right"></button>
+        <a href="input_weight.php" class="ui-btn ui-icon-calendar ui-btn-icon-notext"></a>
+
         
     </div>
     <!-- End TOP MENU BAR -->
@@ -42,8 +44,7 @@
     <div data-role="content" style="background:#fff;">
         <div class="header-graph">
             <div data-role="controlgroup" data-type="horizontal">
-                <a href="#" data-role="button">Day</a>
-                <a href="graphweek.html" data-role="button" class="no-active">Week</a>
+                <a href="graphweek.html" data-role="button">Week</a>
                 <a href="graphmonth.html" data-role="button" class="no-active">Month</a>
             </div>
         </div>
@@ -75,34 +76,38 @@
 </div>
 
 
-
-
 </body>
 </html>
 
 
 <script>
-var lineChartData = {
-    labels : ["14 - 20 ตค.","21 - 27 ตค.","28 - 3 พย.","4 - 10 พย.","11 - 17 พย.","18 - 24 พย."],
-    datasets : [
-        {
-            label: "My First dataset",
-            fillColor : "rgba(0,0,0,0)",
-            strokeColor : "#00bab9",
-            pointColor : "#00bab9",
-            pointStrokeColor : "#00bab9",
-            pointHighlightFill : "#fe4e51",
-            pointHighlightStroke : "#fe4e51",
-            data : [87,85,84,80,78,76]
-        }
-    ]
+var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
 
-}
-$(document).on( "pagecreate", function( ) {
-  var chart = document.getElementById("canvas").getContext("2d");
-    window.myLine = new Chart(chart).Line(lineChartData, {
-            
-        bezierCurveTension : 0,
-    });
-});
+    var barChartData = {
+        labels : ["Week1","Week2","Week3","Week4","Week5","Week6","Week7"],
+        datasets : [
+            {
+                fillColor : "#f05053",
+                strokeColor : "#f05053",
+                highlightFill: "#f05053",
+                highlightStroke: "#f05053",
+                data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+            },
+            {
+                fillColor : "#00cdc6",
+                strokeColor : "#00cdc6",
+                highlightFill : "#00cdc6",
+                highlightStroke : "#00cdc6",
+                data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+            }
+        ]
+
+    }
+    window.onload = function(){
+        var ctx = document.getElementById("canvas").getContext("2d");
+        window.myBar = new Chart(ctx).Bar(barChartData, {
+            responsive : true
+        });
+    }
+
 </script>
