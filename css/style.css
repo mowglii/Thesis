@@ -190,6 +190,7 @@ input, #page_ex .ui-input-search {
 
 #food_meal .ui-listview .ui-li-aside {
 	top: 0.8em;
+	margin-left: 1em; 
 }
 #food_meal .ui-icon-delete {
 	background: #f05053 !important;
@@ -240,6 +241,14 @@ input, #page_ex .ui-input-search {
 	width: 25%;
 	text-align: right;
 
+}
+
+#add_meal input,
+#add_sweet input,
+#add_snack input,
+#add_fruit input,
+#add_drink input {
+	background-color: #eee;
 }
 
 
