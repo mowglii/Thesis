@@ -1,6 +1,6 @@
 <?php
     session_start();
-    // unset($_SESSION["user_id"]); 
+    unset($_SESSION["user_id"]); 
     require('dbconnect.php');
 
     require('dbsaveinfo.php');
@@ -12,6 +12,14 @@
     require('dbshowactivities.php');
 
     require('calculate.php');
+
+    $sum_exer = 0;
+    while($activity = mysqli_fetch_array($result_activities2)) {
+        if ($activity["activities_date"] == $now) {
+            $sum_exer += intval($activity["activities_duration"])*(double)$activity["exer_kcal"];
+        }
+    }
+    echo "asdsadasdas".$sum_exer;
 
 ?>
 
@@ -58,6 +66,247 @@
             <ul>
                 <li><a href="#page1" >เมื่อวาน</a></li>
                 <li><a href="#page2" class="ui-btn-active" >วันนี้</a></li>
+                <li><a href="#page3" >พรุ่งนี้</a></li>
+            </ul>
+        </div>    
+    </div> 
+    <!-- End DAY BAR -->
+
+    <div data-role="header"  >
+        <div>  
+            <?php 
+                $step1 = intval($cal_max) ;
+                $step2 = intval($cal_max/3) ;
+                $step3 = intval($cal_max/2) ;
+
+                // echo $step1."<br>".$step2."<br>".$step3;
+
+                while($kcal = mysqli_fetch_array($result_allcal)) { 
+
+                    // Set bar color
+                    $cal   = intval($kcal["sum(food.food_kcal)"]) - $sum_exer;
+                    $barColor = "progressbar-green";
+                    if ($cal >= $step1) {
+                        $barColor = "progressbar-red";
+                    }
+                    elseif ($cal >= $step2) {
+                        $barColor = "progressbar-orange";
+                    }
+                    elseif ($cal >= $step3) {
+                        $barColor = "progressbar-yellow";
+                    }
+
+                    // Set bar width
+
+                    if ($cal>=0) {
+                        $barWidth = intval( ($cal*100)/$cal_max ) ;
+                    } 
+                    else {
+                        $barWidth = 0;
+                    }
+                    if ($barWidth > 100) {
+                        $barWidth = 100;
+                    }
+                   
+
+            ?>
+                <div class="progressbar <?= $barColor ?>">
+                    <div class="progressbar-inner" style="width:<?= $barWidth ?>%;">
+                        <h1 class="kcal-show"><?= $cal ?> kcal</h1>
+                    </div>
+                </div>
+
+            <?php
+                }
+            ?>
+
+        </div>
+    </div>
+    <!-- End PROGRESS BAR -->
+
+    <div data-role="header" >
+        <div data-role="navbar" data-position="fixed" data-fullscreen="true" data-id="mynav" id="btn_white">
+            <ul id="section">
+                <li><a href="#" data-iconpos="top"><img src="img/min.png" ><br>Min : <?=  $cal_min ?></a></li>
+                <li><a href="#" data-iconpos="top"><img src="img/max.png" ><br>Max : <?=  $cal_max ?></a></li>
+            </ul>
+        </div>    
+    </div>
+    <!-- End MIN & MAX  -->
+
+    <div data-role="header" >
+        <div data-role="navbar" data-position="fixed" data-fullscreen="true" data-id="mynav" id="btn_black">
+            <ul id="section" class="nav-food">
+                <li class="page_food_btn"><a href="#page_food" class="ui-btn-actives" >อาหาร</a></li>
+                <li class="page_ex_btn"><a href="#page_ex" >ออกกำลังกาย</a></li>
+            </ul>
+            <ul id="section" class="nav-ex" style="display:none;">
+                <li class="page_food_btn"><a href="#" >อาหาร</a></li>
+                <li class="page_ex_btn"><a href="#" class="ui-btn-actives">ออกกำลังกาย</a></li>
+            </ul>
+        </div>    
+    </div>
+    <!-- End FOOD & EXERCISE MENU -->
+
+
+    <div data-role="content" >
+        
+        <div id="page_food">
+
+            <div class="head-table-custom">
+                <div>อาหารเช้า</div>
+                <a href="food_type.php?type=0" data-role="button" data-icon="plus" data-iconpos="notext" data-ajax="false"></a>
+                <span class="clearfix"></span>
+            </div>
+            <table data-role="table" class="ui-table table-custom" id="tb_brakefast">
+                <thead><tr></tr></thead>
+                <tbody>
+
+                    <?php
+                        while($food = mysqli_fetch_array($result_eating)) {
+                            if ($food["eating_meal"] == 0 && $food["eating_date"] == $now) {
+                    ?>
+                                <tr>
+                                    <td class="left"><?= $food["food_name"]; ?></td>
+                                    <td>1 จาน</td>
+                                    <td><?= $food["food_weight"]; ?> กรัม</td>
+                                    <td class="right"><b><?= $food["food_kcal"]; ?> kcal</b></td>
+                                </tr>
+
+                    <?php
+                            }// end if
+                        }// end while
+                    ?>
+                </tbody>
+            </table>
+            <!-- End BRAKEFAST TABLE -->
+
+            <div class="head-table-custom margin-top-25">
+                <div>อาหารกลางวัน</div>
+                <a href="food_type.php?type=1" data-role="button" data-icon="plus" data-iconpos="notext" data-ajax="false"></a>
+                <span class="clearfix"></span>
+            </div>
+            <table data-role="table" class="ui-table table-custom" id="tb_lunch">
+                <thead><tr></tr></thead>
+                <tbody>
+                    <?php
+                        while($food = mysqli_fetch_array($result_eating1)) {
+                            if ($food["eating_meal"] == 1 && $food["eating_date"] == $now) {
+                    ?>
+                                <tr>
+                                    <td class="left"><?= $food["food_name"]; ?></td>
+                                    <td>1 ชิ้น</td>
+                                    <td><?= $food["food_weight"]; ?> กรัม</td>
+                                    <td class="right"><b><?= $food["food_kcal"]; ?> kcal</b></td>
+                                </tr>
+
+                    <?php
+                            }// end if
+                        }// end while
+                    ?>
+                </tbody>
+            </table>
+            <!-- End LUNCH TABLE -->
+
+
+            <div class="head-table-custom margin-top-25">
+                <div>อาหารเย็น</div>
+                <a href="food_type.php?type=2" data-role="button" data-icon="plus" data-iconpos="notext" data-ajax="false"></a>
+                <span class="clearfix"></span>
+            </div>
+            <table data-role="table" class="ui-table table-custom" id="tb_dinner">
+                <thead><tr></tr></thead>
+                <tbody>
+                    <?php
+                        while($food = mysqli_fetch_array($result_eating2)) {
+                            if ($food["eating_meal"] == 2 && $food["eating_date"] == $now) {
+                    ?>
+                                <tr>
+                                    <td class="left"><?= $food["food_name"]; ?></td>
+                                    <td>1 ชิ้น</td>
+                                    <td><?= $food["food_weight"]; ?> กรัม</td>
+                                    <td class="right"><b><?= $food["food_kcal"]; ?> kcal</b></td>
+                                </tr>
+
+                    <?php
+                            }// end if
+                        }// end while
+                    ?>
+                </tbody>
+            </table>
+            <!-- End DINNER TABLE -->
+
+
+            
+
+        </div>
+        <!-- End FOOD -->
+
+
+
+
+
+         <div id="page_ex">
+            <div class="head-table-custom">
+                <div>ออกกำลังกาย</div>
+                <a href="exercise.php" data-role="button" data-icon="plus" data-iconpos="notext" data-ajax="false"></a>
+                <span class="clearfix"></span>
+            </div>
+            <table data-role="table" class="ui-table table-custom" id="tb_ex">
+                <thead><tr></tr></thead>
+                <tbody>
+                    <?php
+                        while($activity = mysqli_fetch_array($result_activities)) {
+                            if ($activity["activities_date"] == $now) {
+                                $sum_cal = intval($activity["activities_duration"])*(double)$activity["exer_kcal"];
+                    ?>
+
+                        <tr>
+                            <td class="left"><?= $activity["exer_name"] ?></td>
+                            <td><?= $activity["activities_duration"] ?> นาที</td>
+                            <td class="right"><b><?= $sum_cal ?> kcal</b></td>
+                        </tr>
+
+                    <?php
+                            }// end if
+                        }// end while
+                    ?>
+                </tbody>
+            </table>
+
+        <!-- End EXERCISE -->
+
+    
+</div>
+
+
+
+
+<!-- PAGE 1 -->
+
+<div id="page1" data-role="page" data-theme="a">
+    <div data-role="panel" id="listpanel" data-display="push">
+        <ul data-role="listview" data-theme="d">
+            <li><a href="index2.php" class="ui-btn ui-icon-home ui-btn-icon-left" data-transition="slide">หน้าแรก</a></li>
+            <li><a href="input_weight.php" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-transition="slide">สมุดบันทึกน้ำหนัก</a></li>
+            <li><a href="nutation.php" class="ui-btn ui-icon-pie ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
+            <li><a href="setting.php" class="ui-btn ui-icon-edit ui-btn-icon-left" data-transition="slide">แก้ไขข้อมูลส่วนตัว</a></li>
+            <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li>
+        </ul>
+    </div>          
+
+    <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
+        <h1>MY WEIGHT</h1>
+        <a href="#listpanel" data-icon="bars" data-iconpos="notext"></a>
+        
+    </div>
+    <!-- End TOP MENU BAR -->
+
+    <div data-role="header" >
+        <div data-role="navbar" data-position="fixed" data-fullscreen="true" data-id="mynav" id="btn_black">
+            <ul>
+                <li><a href="#page1" class="ui-btn-active" >เมื่อวาน</a></li>
+                <li><a href="#page2" >วันนี้</a></li>
                 <li><a href="#page3" >พรุ่งนี้</a></li>
             </ul>
         </div>    
@@ -242,12 +491,13 @@
                     <?php
                         while($activity = mysqli_fetch_array($result_activities)) {
                             if ($activity["activities_date"] == $now) {
+                                $sum_cal = intval($activity["activities_duration"])*(double)$activity["exer_kcal"];
                     ?>
 
                         <tr>
                             <td class="left"><?= $activity["exer_name"] ?></td>
                             <td><?= $activity["activities_duration"] ?> นาที</td>
-                            <td class="right"><b><?= $activity["exer_kcal"] ?> kcal</b></td>
+                            <td class="right"><b><?= $sum_cal ?> kcal</b></td>
                         </tr>
 
                     <?php
@@ -262,15 +512,235 @@
     
 </div>
 
-<!-- PAGE 1 -->
 
+<!-- PAGE 3 -->
+<div id="page3" data-role="page" data-theme="a">
+    <div data-role="panel" id="listpanel" data-display="push">
+        <ul data-role="listview" data-theme="d">
+            <li><a href="index2.php" class="ui-btn ui-icon-home ui-btn-icon-left" data-transition="slide">หน้าแรก</a></li>
+            <li><a href="input_weight.php" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-transition="slide">สมุดบันทึกน้ำหนัก</a></li>
+            <li><a href="nutation.php" class="ui-btn ui-icon-pie ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
+            <li><a href="setting.php" class="ui-btn ui-icon-edit ui-btn-icon-left" data-transition="slide">แก้ไขข้อมูลส่วนตัว</a></li>
+            <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li>
+        </ul>
+    </div>          
+
+    <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
+        <h1>MY WEIGHT</h1>
+        <a href="#listpanel" data-icon="bars" data-iconpos="notext"></a>
+        
+    </div>
+    <!-- End TOP MENU BAR -->
+
+    <div data-role="header" >
+        <div data-role="navbar" data-position="fixed" data-fullscreen="true" data-id="mynav" id="btn_black">
+            <ul>
+                <li><a href="#page1" >เมื่อวาน</a></li>
+                <li><a href="#page2"  >วันนี้</a></li>
+                <li><a href="#page3" class="ui-btn-active">พรุ่งนี้</a></li>
+            </ul>
+        </div>    
+    </div> 
+    <!-- End DAY BAR -->
+
+    <div data-role="header"  >
+        <div>  
+            <?php 
+                $step1 = intval($cal_max) ;
+                $step2 = intval($cal_max/3) ;
+                $step3 = intval($cal_max/2) ;
+
+                // echo $step1."<br>".$step2."<br>".$step3;
+
+                while($kcal = mysqli_fetch_array($result_allcal)) { 
+
+                    // Set bar color
+                    $cal   = intval($kcal["sum(food.food_kcal)"]);
+                    $barColor = "progressbar-green";
+                    if ($cal >= $step1) {
+                        $barColor = "progressbar-red";
+                    }
+                    elseif ($cal >= $step2) {
+                        $barColor = "progressbar-orange";
+                    }
+                    elseif ($cal >= $step3) {
+                        $barColor = "progressbar-yellow";
+                    }
+
+                    // Set bar width
+
+                    $barWidth = intval( ($cal*100)/$cal_max );
+                    if ($barWidth > 100) {
+                        $barWidth = 100;
+                    }
+                   
+
+            ?>
+                <div class="progressbar <?= $barColor ?>">
+                    <div class="progressbar-inner" style="width:<?= $barWidth ?>%;">
+                        <h1 class="kcal-show"><?= $cal ?> kcal</h1>
+                    </div>
+                </div>
+
+            <?php
+                }
+            ?>
+
+        </div>
+    </div>
+    <!-- End PROGRESS BAR -->
+
+    <div data-role="header" >
+        <div data-role="navbar" data-position="fixed" data-fullscreen="true" data-id="mynav" id="btn_white">
+            <ul id="section">
+                <li><a href="#" data-iconpos="top"><img src="img/min.png" ><br>Min : <?=  $cal_min ?></a></li>
+                <li><a href="#" data-iconpos="top"><img src="img/max.png" ><br>Max : <?=  $cal_max ?></a></li>
+            </ul>
+        </div>    
+    </div>
+    <!-- End MIN & MAX  -->
+
+    <div data-role="header" >
+        <div data-role="navbar" data-position="fixed" data-fullscreen="true" data-id="mynav" id="btn_black">
+            <ul id="section" class="nav-food">
+                <li class="page_food_btn"><a href="#page_food" class="ui-btn-actives" >อาหาร</a></li>
+                <li class="page_ex_btn"><a href="#page_ex" >ออกกำลังกาย</a></li>
+            </ul>
+            <ul id="section" class="nav-ex" style="display:none;">
+                <li class="page_food_btn"><a href="#" >อาหาร</a></li>
+                <li class="page_ex_btn"><a href="#" class="ui-btn-actives">ออกกำลังกาย</a></li>
+            </ul>
+        </div>    
+    </div>
+    <!-- End FOOD & EXERCISE MENU -->
+
+
+    <div data-role="content" >
+        
+        <div id="page_food">
+
+            <div class="head-table-custom">
+                <div>อาหารเช้า</div>
+                <a href="food_type.php?type=0" data-role="button" data-icon="plus" data-iconpos="notext" data-ajax="false"></a>
+                <span class="clearfix"></span>
+            </div>
+            <table data-role="table" class="ui-table table-custom" id="tb_brakefast">
+                <thead><tr></tr></thead>
+                <tbody>
+
+                    <?php
+                        while($food = mysqli_fetch_array($result_eating)) {
+                            if ($food["eating_meal"] == 0 && $food["eating_date"] == $now) {
+                    ?>
+                                <tr>
+                                    <td class="left"><?= $food["food_name"]; ?></td>
+                                    <td>1 จาน</td>
+                                    <td><?= $food["food_weight"]; ?> กรัม</td>
+                                    <td class="right"><b><?= $food["food_kcal"]; ?> kcal</b></td>
+                                </tr>
+
+                    <?php
+                            }// end if
+                        }// end while
+                    ?>
+                </tbody>
+            </table>
+            <!-- End BRAKEFAST TABLE -->
+
+            <div class="head-table-custom margin-top-25">
+                <div>อาหารกลางวัน</div>
+                <a href="food_type.php?type=1" data-role="button" data-icon="plus" data-iconpos="notext" data-ajax="false"></a>
+                <span class="clearfix"></span>
+            </div>
+            <table data-role="table" class="ui-table table-custom" id="tb_lunch">
+                <thead><tr></tr></thead>
+                <tbody>
+                    <?php
+                        while($food = mysqli_fetch_array($result_eating1)) {
+                            if ($food["eating_meal"] == 1 && $food["eating_date"] == $now) {
+                    ?>
+                                <tr>
+                                    <td class="left"><?= $food["food_name"]; ?></td>
+                                    <td>1 ชิ้น</td>
+                                    <td><?= $food["food_weight"]; ?> กรัม</td>
+                                    <td class="right"><b><?= $food["food_kcal"]; ?> kcal</b></td>
+                                </tr>
+
+                    <?php
+                            }// end if
+                        }// end while
+                    ?>
+                </tbody>
+            </table>
+            <!-- End LUNCH TABLE -->
+
+
+            <div class="head-table-custom margin-top-25">
+                <div>อาหารเย็น</div>
+                <a href="food_type.php?type=2" data-role="button" data-icon="plus" data-iconpos="notext" data-ajax="false"></a>
+                <span class="clearfix"></span>
+            </div>
+            <table data-role="table" class="ui-table table-custom" id="tb_dinner">
+                <thead><tr></tr></thead>
+                <tbody>
+                    <?php
+                        while($food = mysqli_fetch_array($result_eating2)) {
+                            if ($food["eating_meal"] == 2 && $food["eating_date"] == $now) {
+                    ?>
+                                <tr>
+                                    <td class="left"><?= $food["food_name"]; ?></td>
+                                    <td>1 ชิ้น</td>
+                                    <td><?= $food["food_weight"]; ?> กรัม</td>
+                                    <td class="right"><b><?= $food["food_kcal"]; ?> kcal</b></td>
+                                </tr>
+
+                    <?php
+                            }// end if
+                        }// end while
+                    ?>
+                </tbody>
+            </table>
+            <!-- End DINNER TABLE -->
+
+        </div>
+        <!-- End FOOD -->
+
+
+
+
+
+         <div id="page_ex">
+            <div class="head-table-custom">
+                <div>ออกกำลังกาย</div>
+                <a href="exercise.php" data-role="button" data-icon="plus" data-iconpos="notext" data-ajax="false"></a>
+                <span class="clearfix"></span>
+            </div>
+            <table data-role="table" class="ui-table table-custom" id="tb_ex">
+                <thead><tr></tr></thead>
+                <tbody>
+                    <?php
+                        while($activity = mysqli_fetch_array($result_activities)) {
+                            if ($activity["activities_date"] == $now) {
+                                $sum_cal = intval($activity["activities_duration"])*(double)$activity["exer_kcal"];
+                    ?>
+
+                        <tr>
+                            <td class="left"><?= $activity["exer_name"] ?></td>
+                            <td><?= $activity["activities_duration"] ?> นาที</td>
+                            <td class="right"><b><?= $sum_cal ?> kcal</b></td>
+                        </tr>
+
+                    <?php
+                            }// end if
+                        }// end while
+                    ?>
+                </tbody>
+            </table>
+
+        <!-- End EXERCISE -->
 
     
 </div>
-
-
-<!-- PAGE 3 -->
-
 
 
 </body>

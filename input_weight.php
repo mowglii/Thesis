@@ -1,5 +1,13 @@
 <?php
+    session_start();
+    unset($_SESSION["user_id"]); 
+    require('dbconnect.php');
 
+    require('dbfinduserid.php');
+    require ('dbshowuser.php');
+    require ('dbshowuserweight.php');
+
+    require ('dbsaveweight.php');
 
 ?>
 
@@ -35,7 +43,7 @@
 
     <div data-role="panel" id="listpanel" data-display="push">
         <ul data-role="listview" data-theme="d">
-            <li><a href="index2.html" class="ui-btn ui-icon-home ui-btn-icon-left" data-transition="slide">หน้าแรก</a></li>
+            <li><a href="index2.php" class="ui-btn ui-icon-home ui-btn-icon-left" data-transition="slide">หน้าแรก</a></li>
             <li><a href="input_weight.php" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-transition="slide">สมุดบันทึกน้ำหนัก</a></li>
             <li><a href="nutation.php" class="ui-btn ui-icon-pie ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
             <li><a href="setting.php" class="ui-btn ui-icon-edit ui-btn-icon-left" data-transition="slide">แก้ไขข้อมูลส่วนตัว</a></li>
@@ -45,22 +53,25 @@
     <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
         <h1>สมุดบันทึกน้ำหนัก</h1>
         <a href="#listpanel" data-icon="bars" data-iconpos="notext" class="ui-btn-left"></a>
-        <!-- <a href="graphweek.html" class="ui-btn ui-btn-inline ui-icon-bar ui-btn-icon-notext"></a> -->
-        <a href="graphweek.html" class="ui-btn ui-btn-inline ui-icon-bar ui-btn-icon-notext"></a>
+
+        <a href="graph_weight.php" class="ui-btn ui-btn-inline ui-icon-bar ui-btn-icon-notext"></a>
     
     </div>
     <!-- End TOP MENU BAR -->
 
 
 
-    <div data-role="content">
+    <div data-role="content" >
         <div class="ui-content" id="input-weight-wrapper">
-            <div data-role="fieldcontain"  id="weight-now" >
+            <form action="" method="post" id="weight-now" >
                 <label class="float-left" ><h3>น้ำหนักวันนี้</h3></label>
 
-                <input type="number" min="0" max="300" name="weight"value="" class="ui-input-text">
+                <input type="number" min="0" max="300" name="user_weight_weight" id="user_weight" value="" class="ui-input-text">
+                <input type="type" name="user_id" id="add_user_id" style="display:none">
+                <input type="type" name="user_weight_id" id="add_weight_id" style="display:none" >
+                <input type="type" name="user_weight_date" id="add_weight_date" style="display:none" >
                 <label class="float-left" ><h3>กิโลกรัม</h3></label>
-            </div>  
+            </form>  
 
             <button type="submit" class="margin-top-25" >เพิ่ม </button>
         </div>  
@@ -72,18 +83,22 @@
             <table data-role="table" class="ui-table table-custom" id="tb_each">
                 <thead><tr></tr></thead>
                 <tbody>
+<?php
+
+    while($weight_day = mysqli_fetch_array($result_userweight)) {
+?>
                     <tr>
-                        <td class="left">14/01/2015</td>
-                        <td class="right"><b>85 กิโลกรัม</b></td>
+                        <td class="left"><?= $weight_day["user_weight_date"]; ?></td>
+                        <td class="right"><b><?= $weight_day["user_weight_weight"]; ?> กิโลกรัม</b></td>
                     </tr>
-                    <tr>
-                        <td class="left">13/01/2015</td>
-                        <td class="right"><b>85 กิโลกรัม</b></td>
-                    </tr>
-                    <tr>
-                        <td class="left">12/01/2015</td>
-                        <td class="right"><b>85 กิโลกรัม</b></td>
-                    </tr>
+<?php
+    
+    }
+    //end while
+
+
+?>
+
                 </tbody>
             </table>
         </div>  
@@ -92,14 +107,18 @@
 
 
     <div data-role="footer" class="graph-footer" data-position="fixed">
+<?php
+
+    while($weight_info = mysqli_fetch_array($result_user)) {
+?>
         <div>
             <p>เป้าหมาย</p>
-            <h1>57</h1>
+            <h1><?= $weight_info["user_goal"]; ?></h1>
             <p>กก.</p>
         </div>
         <div>
             <p>ปัจจุบัน</p>
-            <h1>75</h1>
+            <h1><?= $weight_info["user_weight"]; ?></h1>
             <p>กก.</p>
         </div>
         <div>
@@ -108,7 +127,13 @@
             <p>วัน</p>
         </div>
     </div>
+<?php
+    
+    }
+    //end while
 
+
+?>
 </div>
 
 

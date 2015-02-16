@@ -11,6 +11,6 @@
                        WHERE activities.user_id=' . $_SESSION["user_id"] . ' AND (activities.activities_date = "' . $now . '"   ' . ' OR activities.activities_date = "' . $yesterday . '" ' . ' OR activities.activities_date = "' . $tomorrow . '") ';
 
   	$result_activities  = mysqli_query($dbconnect,$activities_sql);
-
+  	$result_activities2  = mysqli_query($dbconnect,$activities_sql);
 ?>
 

@@ -1,3 +1,18 @@
+@font-face {
+    font-family: 'fonts/thaisans_neueregular';
+    src: url('fonts/thaisansneue-regular-webfont.eot');
+    src: url('fonts/thaisansneue-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/thaisansneue-regular-webfont.woff2') format('woff2'),
+         url('fonts/thaisansneue-regular-webfont.woff') format('woff'),
+         url('fonts/thaisansneue-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
 body {
 	font-size: 16px;
 }
@@ -27,7 +42,8 @@ form .ui-input-text, button{
 	text-align: center;
 }
 #img-logo img {
-	max-width: 250px;
+	margin-top: 50px;
+	max-width: 200px;
 }
 #info-calculate {
 	margin-top: -20px;
@@ -69,8 +85,8 @@ input, #page_ex .ui-input-search {
 	color: #004853 !important;
 }
 #page_ex .ui-icon-plus {
-	background: #fc6800 !important;
-	border: 1px solid #fc6800;
+	background: #fe4e50 !important;
+	border: 1px solid #fe4e50;
 }
 #page_ex .ui-icon-delete {
 	background: #f05053 !important;
@@ -106,7 +122,7 @@ input, #page_ex .ui-input-search {
 
 #tb_ex.table-custom tbody {
 	border-bottom: 10px solid #fff;
-	border-top: 5px solid #fc6800;
+	border-top: 5px solid #fe4e50;
 }
 #tb_ex.table-custom tbody tr:nth-child(even) {
    background-color: #fff2e5;
@@ -190,6 +206,7 @@ input, #page_ex .ui-input-search {
 
 #food_meal .ui-listview .ui-li-aside {
 	top: 0.8em;
+	margin-left: 1em; 
 }
 #food_meal .ui-icon-delete {
 	background: #f05053 !important;
@@ -240,6 +257,15 @@ input, #page_ex .ui-input-search {
 	width: 25%;
 	text-align: right;
 
+}
+
+#add_meal input,
+#add_sweet input,
+#add_snack input,
+#add_fruit input,
+#add_drink input,
+#add_etc input {
+	background-color: #eee;
 }
 
 
@@ -350,7 +376,7 @@ input, #page_ex .ui-input-search {
 }
 #btn_black #section .page_food_btn .ui-btn-actives ,#btn_black #section .page_ex_btn .ui-btn-actives{
 	background: #444 ;
-	border-bottom: 5px solid #00cdc6 !important;
+	border-bottom: 5px solid #0595b3 !important;
 }
 
 
@@ -468,7 +494,7 @@ div {
 .input-style-wrapper label {
 	width: 15%;
 	float: left;
-	margin-right: 2%;
+	margin-right: 5px;
 }
 .input-style-wrapper .input-img {
 	background-color: #fff;
@@ -525,11 +551,12 @@ div {
 
 #input-weight-wrapper {
 	background: #fff;
+
 }
 #weight-now .ui-input-text.ui-body-inherit {
 	width: 45% ;
 	float: left;
-	margin-left: 5%
+	margin-left: 5%;
 }
 #weight-now label h3 {
 	margin-top: 0;
@@ -556,10 +583,14 @@ div {
 
 /*---------------GRAPH-------------------------*/
 
-.graph {
+.graph{
 	overflow-x: scroll; 
-	 
+
+	width: auto;
+	height: auto;
+	background: #fff;
 }
+
 .header-graph {
 	width: 100%;
 	text-align: center;
@@ -611,7 +642,7 @@ div {
 .progressbar{
     
     width:100%;
-    height:80px;
+    height:60px;
     /*margin:0 auto 20px auto;*/
     padding:0px;
     position: relative;

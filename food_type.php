@@ -33,7 +33,7 @@
 <div id="page_food_type" data-role="page" data-theme="a">
     <div data-role="panel" id="listpanel" data-display="push">
         <ul data-role="listview" data-theme="d">
-            <li><a href="index2.html" class="ui-btn ui-icon-home ui-btn-icon-left" data-transition="slide">หน้าแรก</a></li>
+            <li><a href="index2.php" class="ui-btn ui-icon-home ui-btn-icon-left" data-transition="slide">หน้าแรก</a></li>
             <li><a href="input_weight.php" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-transition="slide">สมุดบันทึกน้ำหนัก</a></li>
             <li><a href="nutation.php" class="ui-btn ui-icon-pie ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
             <li><a href="setting.php" class="ui-btn ui-icon-gear ui-btn-icon-left" data-transition="slide">ตั้งค่า</a></li>
@@ -81,12 +81,12 @@
                         <h1>เครื่องดื่ม</h1>
                     </a>
                 </li>
-                <!-- <li id="etc">
+                <li id="etc">
                     <a href="#food_type_etc">
                         <img src="img/etc.jpg">
                         <h1>อื่นๆ</h1>
                     </a>
-                </li> -->
+                </li>
             </ul>
         </div>
     </div>
@@ -571,6 +571,99 @@
 
             </div>
         </div>
+
+
+
+<!-- FOOD TYPE ETC 6 -->
+<div id="food_type_etc" data-role="page" data-theme="a">
+    <div data-role="panel" id="listpanel" data-display="push">
+        <ul data-role="listview" data-theme="d">
+            <li><a href="index2.html" class="ui-btn ui-icon-home ui-btn-icon-left">หน้าแรก</a></li>
+            <li><a href="graphweek" class="ui-btn ui-icon-calendar ui-btn-icon-left">สมุดบันทึกน้ำหนัก</a></li>
+            <li><a href="nutation.php" class="ui-btn ui-icon-pie ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
+            <li><a href="setting.php" class="ui-btn ui-icon-edit ui-btn-icon-left" data-transition="slide">แก้ไขข้อมูลส่วนตัว</a></li>
+            <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li>
+        </ul>
+    </div>          
+
+    <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
+        
+        <h1>อื่นๆ</h1>
+        <a href="#" data-rel="back" data-icon="carat-l" data-iconpos="notext"></a>
+  
+    </div>
+    <!-- End TOP MENU BAR -->
+
+    <div id="food_meal" data-role="content" >
+        <div data-filter="true" data-filter-placeholder="Search">
+            <div data-role="content" data-theme="b" id="food_meal_list">
+                <ul data-role="listview" class="fff">
+<?php
+
+        while($food = mysqli_fetch_array($result_food_etc)) {
+
+            if ($food["food_type"] == "อื่นๆ") {
+
+
+        ?>
+
+        <li data-foodname="<?= $food["food_name"]; ?>" data-foodkcal="<?= $food["food_kcal"]; ?>" data-foodid="<?= $food["food_id"]; ?>">
+            <a href="food_detail.php?id=<?= $food["food_id"]; ?>">
+                <img src="img/etc.jpg" >
+                <h1 class="food_name_width"><?= $food["food_name"]; ?></h1>
+                <span class="ui-li-aside"><h1><?= $food["food_kcal"]; ?> Kcal</h1></span>
+                
+            </a>
+            <a href="#add_etc" class="add_food_btn6" data-icon="plus" data-iconpos="right" data-rel="popup" data-position-to="window" data-transition="slideup">add</a>
+
+        </li>
+
+<?php
+    
+    }
+    //end if
+
+}
+//end while
+
+
+?>
+
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- End Food Meal -->
+
+
+    <!-- POPUP -->
+
+        <div data-role="popup" id="add_etc" data-position-to="window" data-theme="a">
+
+            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+
+            <div data-role="header" ><h1>เพิ่มรายการอาหาร</h1></div>
+            <div data-role="content">     
+
+                <form action="index2.php" method="post" name="formpop" id="add_foodform" class="ui-content" >
+                    <div>
+                        <div id="tb_name6">กระเพาะปลา  (1 ชาม)</div> 
+                        <div id="tb_kcal6" >150 Kcal</div>      
+                        <span class="clearfix"></span>
+
+                    </div>
+                    <input type="type" name="user_id" id="add_user_id6" style="display:none;">
+                    <input type="type" name="food_id" id="add_food_id6" style="display:none;">
+                    <input type="type" name="eating_date" id="eating_date6" style="display:none;">
+                    <input type="type" name="eating_meal" id="eating_meal6" style="display:none;">
+                    <input type="number" name="food_value" id="food_value6" value="">
+                    <button type="submit" class="" data-theme="a" >ตกลง</button>
+                </form>
+                
+
+            </div>
+        </div>
 </div>
 
 </body>
@@ -671,6 +764,24 @@ $(".add_food_btn5").click(function() {
 
 });
 
+
+$(".add_food_btn6").click(function() {
+    var foodid = $(this).parent().attr('data-foodid');
+    var foodname = $(this).parent().attr('data-foodname');
+    var foodkcal = $(this).parent().attr('data-foodkcal');
+    
+    <?php $date = date('Y-m-d'); ?>
+
+    // alert("user_id : <?= $_SESSION["user_id"] ?>, food_id : " + id + ", eating_date : <?= $date ?>, eating_meal : <?= $_GET['type'] ?>");
+    $("#tb_name6").text(foodname);
+    $("#tb_kcal6").text(foodkcal+" kcal");
+    
+    $("#add_user_id6").val(<?= $_SESSION["user_id"] ?>);
+    $("#add_food_id6").val(foodid);
+    $("#eating_date6").val("<?= $date ?>");
+    $("#eating_meal6").val(<?= $_GET['type'] ?>);
+
+});
 </script>
 
 

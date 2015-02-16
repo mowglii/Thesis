@@ -22,14 +22,15 @@
 
 <!-- PAGE MONTH -->
 <div data-role="page" data-theme="a">
-    <div data-role="panel" id="listpanel" data-display="push">
-        <ul data-role="listview" data-theme="b">
-            <li><a href="index2.html">หน้าแรก</a></li>
-            <li><a href="#">สมุดบันทึกน้ำหนัก</a></li>
-            <li><a href="#">ข้อมูลสารอาหาร</a></li>
-            <li><a href="#">ตั้งค่า</a></li>
+   <div data-role="panel" id="listpanel" data-display="push">
+        <ul data-role="listview" data-theme="d">
+            <li><a href="index2.php" class="ui-btn ui-icon-home ui-btn-icon-left" data-transition="slide">หน้าแรก</a></li>
+            <li><a href="input_weight.php" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-transition="slide">สมุดบันทึกน้ำหนัก</a></li>
+            <li><a href="nutation.php" class="ui-btn ui-icon-pie ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
+            <li><a href="setting.php" class="ui-btn ui-icon-edit ui-btn-icon-left" data-transition="slide">แก้ไขข้อมูลส่วนตัว</a></li>
+            <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li>
         </ul>
-    </div>          
+    </div>    
 
     <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
         <h1>MY WEIGHT</h1>
@@ -44,34 +45,17 @@
     <div data-role="content" style="background:#fff;">
         <div class="header-graph">
             <div data-role="controlgroup" data-type="horizontal">
-                <a href="graphweek.html" data-role="button" class="no-active">Week</a>
-                <a href="#" data-role="button">Month</a>
+                <a href="graphweek.php" data-role="button"   class="no-active" data-ajax="false">Week</a>
+                <a href="graphmonth.php" data-role="button" data-ajax="false">Month</a>
             </div>
         </div>
-        <div class="graph">
-            <canvas id="canvas" height="300" width="450"></canvas>
+        <div style="width: 100%">
+            <canvas id="canvas" height="450" width="600"></canvas>
         </div>
         
     </div>
 
 
-    <div data-role="footer" class="graph-footer" data-position="fixed">
-        <div>
-            <p>เป้าหมาย</p>
-            <h1>57</h1>
-            <p>กก.</p>
-        </div>
-        <div>
-            <p>ปัจจุบัน</p>
-            <h1>75</h1>
-            <p>กก.</p>
-        </div>
-        <div>
-            <p>เหลือเวลา</p>
-            <h1>92</h1>
-            <p>วัน</p>
-        </div>
-    </div>
 
 </div>
 
@@ -84,21 +68,21 @@
 var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
 
     var barChartData = {
-        labels : ["month1","month2","month3","month4","month5"],
+        labels : ["ปริมาณ","ค่าพลังงาน","ไขมัน","โคเลสเตอรอล","โปรตีน","คาร์โบไฮเดรต","น้ำตาล","โซเดียม","วิตามินเอ","วิตามินบี1","วิตามินบี2","แคมเซียม","เหล็ก"],
         datasets : [
             {
                 fillColor : "#f05053",
                 strokeColor : "#f05053",
                 highlightFill: "#f05053",
                 highlightStroke: "#f05053",
-                data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+                data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
             },
             {
                 fillColor : "#00cdc6",
                 strokeColor : "#00cdc6",
                 highlightFill : "#00cdc6",
                 highlightStroke : "#00cdc6",
-                data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+                data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
             }
         ]
 
@@ -109,4 +93,4 @@ var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
             responsive : true
         });
     }
-
+</script>
