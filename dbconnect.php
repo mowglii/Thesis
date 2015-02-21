@@ -2,7 +2,7 @@
 <?php
 	$servername = "localhost";
 
-	// localhost
+	// // localhost
 	$username = "root";
 	$password = "";
 	$dbname = "thesis";
@@ -12,7 +12,7 @@
 	// $password = "thesis0169";
 	// $dbname = "divinth_thesis";
 
-	// host su13540215
+	//host su13540215
 	// $username = "usmfngag";
 	// $password = "x8rD1Hdk64";
 	// $dbname = "usmfngag_blogWP";

@@ -2,9 +2,21 @@
 
 <?php
 
-    require('dbshowuser.php');
+    $user_sqlx = "SELECT * FROM user WHERE user_id = " . $_SESSION["user_id"];
+    $result_userx = mysqli_query($dbconnect,$user_sqlx);
 
-            while($user = mysqli_fetch_array($result_user)) {
+    $user_weight_sqlx = "SELECT user_weight_weight FROM user_weight WHERE user_id = " . $_SESSION["user_id"] . " ORDER BY user_weight_id DESC LIMIT 1";
+    $result_user_weightx  = mysqli_query($dbconnect,$user_weight_sqlx);
+    $count_user_weightx = 0;
+    $weight_nowx = 0;
+    while($obj = mysqli_fetch_array($result_user_weightx)) {
+        $count_user_weightx++;
+        $weight_nowx = $obj["user_weight_weight"];
+    }
+
+
+
+            while($user = mysqli_fetch_array($result_userx)) {
 
                 $weight = intval($user["user_weight"]);
                 $height = intval($user["user_height"]);
@@ -12,10 +24,13 @@
                 $mode = (double)$user["user_mode"];
                 $activity = (double)$user["user_frequency"];
                 $user_birthday = $user["user_birthday"];
+                $goal = (double)$user["user_goal"];
+                $birthday = new DateTime($user_birthday);
+                $to   = new DateTime('today');
+                $age = $birthday->diff($to)->y;
 
                 $bmi = $weight/(($height/100)*($height/100));
                 $bmi_show = "";
-                $age = 22;
                 $bmr = 0;
                 $cal = 0;
                 $cal_min = 0;
@@ -44,6 +59,10 @@
                     $cal_min = 800;
                 }
                 $cal_max = intval($cal-($mode*7700/7)); 
+
+                if($cal_max <= $cal_min) {
+                    $cal_max = $cal_min;
+                }
 
 
                 if($bmi <= 16) {
@@ -75,9 +94,17 @@
                 }
 
 
-                $birthday = new DateTime($user_birthday);
-                $to   = new DateTime('today');
-                echo $birthday->diff($to)->y;
+                // find time
+
+                if ($count_user_weightx == 0) {
+                    $time_rest        = intval($goal/($mode/7));
+                }
+                else {
+                    $diff = $weight-$weight_nowx;
+                    $time_rest        = intval(($goal-$diff)/($mode/7));
+                }
+                
+                
 
 
 

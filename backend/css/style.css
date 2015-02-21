@@ -1,18 +1,22 @@
 
-
-
 body {
-	width: 100%;
+	width: 100% !important;
 	font-family: 'thaisans_neueregular' !important;
 	font-size: 18px;
 	margin: 0 auto;
 }
 
 header {
-	width: 100%;
+	width: 100% !important;
 	height: 60px;
 	background: #0595b3;
 }
+body.login-wrapper {
+	background: url(../img/bg.png) repeat;
+}
+
+
+
 #content-wrapper {
 	width: 100%;
 	height: auto;
@@ -30,10 +34,19 @@ header {
 	/*background: #eee;*/
 	margin: 0 auto;
 }
-#content-form input.width100 {
+#content-form2 {
+	width: 40%;
+	height: 100%;
+	/*background: #eee;*/
+	margin: 0 auto;
+}
+
+#content-form input.width100, 
+#content-form2 input.width100 {
 	width: 100%;
 }
-#content-form .form-coloum {
+#content-form .form-coloum,
+#content-form2 .form-coloum {
 	width: 50%;
 	float: left;
 }
@@ -41,6 +54,9 @@ header {
 #logo-wrapper {
 	float: left;
 	color: #fff;
+}
+#logo-wrapper-login {
+	text-align: center;
 }
 .dropdown-menu {
 	border-radius: 0px ;
@@ -89,14 +105,21 @@ header {
 
 
 
+input {
+	padding-left: 5px;
+}
+
+.navbar-nav {
+	margin-top: 0px;
+}
 a {
 	color: #fff;
 }
 
 
-/*----------BTN-----------------*/
+/*--------------------BTN-----------------*/
 .btn-default {
-	border-radius: 0px;
+	border-radius: 5px;
 	border: 0px solid #fff;
 	background: #fe4e50;
 	color: #fff;
@@ -176,6 +199,19 @@ button#delete.new-btn:hover {
 
 
 
+
+.btn-login, .btn-login:visited {
+	background-color: #0595b3;
+}
+.btn-login:hover {
+	background-color: #06aed1;
+	color: #fff;
+	text-decoration: none;
+}
+
+
+
+
 /*-----------POPUP----------------*/
 
 .modal-title {
@@ -200,6 +236,10 @@ button#delete.new-btn:hover {
 
 
 
+/*-------------------ETC------------------------*/
+
+
+
 .hide {
 	display: none;
 }
@@ -208,6 +248,9 @@ button#delete.new-btn:hover {
 }
 .input-width {
 	width: 50px;
+}
+.input-width2 {
+	width: 80px;
 }
 .margin-top-50{
 	margin-top: 50px;
@@ -220,4 +263,78 @@ button#delete.new-btn:hover {
 }
 .margin-bottom-100{
 	margin-bottom: 100px;
+}
+.float-right {
+	float: right;
+}
+.float-left {
+	float: left;
+}
+.center {
+	text-align: center;
+}
+
+.padding-top-20 {
+	padding-top: 20px;
+} 
+
+
+
+
+
+
+/*------------------------TABLE RES----------------------------------*/
+
+@media only screen and (max-width: 800px) {
+    
+    /* Force table to not be like tables anymore */
+	#no-more-tables table, 
+	#no-more-tables thead, 
+	#no-more-tables tbody, 
+	#no-more-tables th, 
+	#no-more-tables td, 
+	#no-more-tables tr { 
+		display: block; 
+	}
+ 
+	/* Hide table headers (but not display: none;, for accessibility) */
+	#no-more-tables thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+ 
+	#no-more-tables tr { border: 1px solid #ccc; }
+ 
+	#no-more-tables td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+		white-space: normal;
+		text-align:left;
+	}
+ 
+	#no-more-tables td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+		text-align:left;
+		font-weight: bold;
+	}
+ 
+	/*
+	Label the data
+	*/
+	#no-more-tables td:before { content: attr(data-title); }
+
+	#no-more-tables input {
+	width: 100%;
+}
 }

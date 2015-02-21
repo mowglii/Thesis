@@ -133,13 +133,13 @@
         ?>
 
         <li data-foodname="<?= $food["food_name"]; ?>" data-foodkcal="<?= $food["food_kcal"]; ?>" data-foodid="<?= $food["food_id"]; ?>">
-            <a href="food_detail.php?id=<?= $food["food_id"]; ?>">
+            <a href="#add_meal " data-rel="popup" data-position-to="window" data-transition="slideup" class="add_food_btn1">
                 <img src="img/meal.jpg" >
                 <h1 class="food_name_width"><?= $food["food_name"]; ?></h1>
                 <span class="ui-li-aside"><h1><?= $food["food_kcal"]; ?> Kcal</h1></span>
                 
             </a>
-            <a href="#add_meal" class="add_food_btn1" data-icon="plus" data-iconpos="right" data-rel="popup" data-position-to="window" data-transition="slideup">add</a>
+            <a href="food_detail.php?id=<?= $food["food_id"]; ?>" data-icon="carat-r" data-iconpos="right" >add</a>
 
         </li>
 
@@ -182,7 +182,7 @@
                     <input type="type" name="food_id" id="add_food_id1" style="display:none;">
                     <input type="type" name="eating_date" id="eating_date1" style="display:none;">
                     <input type="type" name="eating_meal" id="eating_meal1" style="display:none;">
-                    <input type="number" name="food_value" id="food_value1" value="">
+                    <input type="number" min="1" name="eating_amount" id="food_value1" value="1">
                     <button type="submit" class="" data-theme="a" >ตกลง</button>
                 </form>
                 
@@ -276,7 +276,7 @@
                     <input type="type" name="food_id" id="add_food_id2" style="display:none;">
                     <input type="type" name="eating_date" id="eating_date2" style="display:none;">
                     <input type="type" name="eating_meal" id="eating_meal2" style="display:none;">
-                    <input type="number" name="food_value" id="food_value2" value="">
+                    <input type="number" min="1" name="eating_amount" id="food_value2" value="1">
                     <button type="submit" class="" data-theme="a" >ตกลง</button>
                 </form>
                 
@@ -374,7 +374,7 @@
                     <input type="type" name="food_id" id="add_food_id3" style="display:none;">
                     <input type="type" name="eating_date" id="eating_date3" style="display:none;">
                     <input type="type" name="eating_meal" id="eating_meal3" style="display:none;">
-                    <input type="number" name="food_value" id="food_value3" value="">
+                    <input type="number"  min="1" name="eating_amount" id="food_value3" value="1">
                     <button type="submit" class="" data-theme="a" >ตกลง</button>
                 </form>
                 
@@ -469,7 +469,7 @@
                     <input type="type" name="food_id" id="add_food_id4" style="display:none;">
                     <input type="type" name="eating_date" id="eating_date4" style="display:none;">
                     <input type="type" name="eating_meal" id="eating_meal4" style="display:none;">
-                    <input type="number" name="food_value" id="food_value4" value="">
+                    <input type="number"  min="1" name="eating_amount" id="food_value4" value="1">
                     <button type="submit" class="" data-theme="a" >ตกลง</button>
                 </form>
                 
@@ -564,7 +564,7 @@
                     <input type="type" name="food_id" id="add_food_id5" style="display:none;">
                     <input type="type" name="eating_date" id="eating_date5" style="display:none;">
                     <input type="type" name="eating_meal" id="eating_meal5" style="display:none;">
-                    <input type="number" name="food_value" id="food_value5" value="">
+                    <input type="number"  min="1" name="eating_amount" id="food_value5" value="1">
                     <button type="submit" class="" data-theme="a" >ตกลง</button>
                 </form>
                 
@@ -657,7 +657,7 @@
                     <input type="type" name="food_id" id="add_food_id6" style="display:none;">
                     <input type="type" name="eating_date" id="eating_date6" style="display:none;">
                     <input type="type" name="eating_meal" id="eating_meal6" style="display:none;">
-                    <input type="number" name="food_value" id="food_value6" value="">
+                    <input type="number" min="1" name="eating_amount" id="food_value6" value="1">
                     <button type="submit" class="" data-theme="a" >ตกลง</button>
                 </form>
                 

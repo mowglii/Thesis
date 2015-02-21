@@ -26,7 +26,7 @@
 			</div>
 
 			<div class="dropdown nav navbar-nav navbar-right">
-				<button class="btn btn-personal dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+				<button class="btn btn-personal dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" >
 					ชื่อผู้ใช้งาน
 				</button>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -41,16 +41,16 @@
 		<div id="content-wrapper">
 			<div id="content">
 				<ul class="nav nav-pills nav-justified">
-			      <li role="presentation" class="active"><a href="index.php">ข้อมูลอาหาร</a></li>
-			      <li role="presentation"><a href="#exercise">ข้อมูลการออกกำลังกาย</a></li>
-			      <li role="presentation"><a href="#user">ข้อมูลผู้ใช้งาน</a></li>
+			      <li role="presentation" class="active"><a href="index_.php">ข้อมูลอาหาร</a></li>
+			      <li role="presentation"><a href="index_ex.php">ข้อมูลการออกกำลังกาย</a></li>
+			      <li role="presentation"   ><a href="index_user.php">ข้อมูลผู้ใช้งาน</a></li>
 			    </ul>
 			</div>
 		</div>
 
 	<div class="content-wrapper" id="food">
 		<div id="content-form">
-				<form action="index.php" method="POST" name="addform" class="form-horizontal margin-top-50" onsubmit="return validateForm()">
+				<form action="index_.php" method="POST" name="addform" class="form-horizontal margin-top-50" onsubmit="return validateForm()">
 
 		            <div class="form-coloum">
 		            	<div class="form-group"> 
@@ -128,9 +128,9 @@
 		            	</div>
 		       		</div>
 
-		       		<button type="submit" value="" id="add" class="add-btn new-btn margin-top-100">
+		       		<button type="submit" value="" id="add" class="add-btn new-btn margin-top-100" onClick="alert('ทำการเพิ่มข้อมูลเรียบร้อย')">
 		       			<span class="glyphicon glyphicon-ok" aria-hidden="true" style="margin-top:5px; font-size:14px;"></span>
-		       			เพิ่มรายการอาหาร
+		       			เพิ่มข้อมูล
 		       		</button>
 				</form>
 

@@ -105,7 +105,7 @@ while($exercise = mysqli_fetch_array($result)) {
                     <span class="clearfix"></span>
 
                 </div>
-                <form action="index2.php" method="post" name="formpop" id="add_exform" class="ui-content" >
+                <form action="index2.php" method="post" name="formpop" id="add_exform" class="ui-content" data-ajax="false">
 
                     <input type="type" name="user_id" id="add_user_id" style="display:none">
                     <input type="type" name="exer_id" id="add_exer_id" style="display:none" >

@@ -16,7 +16,7 @@
 
 </head>
 <body>
-<form action="index2.php" method="post" name="info" id="info-calculate" data-ajax="false">
+<form action="index2.php" method="post" name="info" id="info-calculate" data-ajax="false" onsubmit="return validateForm()">
 <!-- PAGE 1 -->
 	<!-- ==========HEADER========== -->	
 	<div data-role="page" id="page1" data-theme="a">
@@ -50,7 +50,7 @@
 						    <input type="radio" name="gender" id="female" value="f" class="custom">
 						    <label for="female" class="">หญิง</label>
 						 
-						    <input type="radio" name="gender" id="male" value="m" class="custom" >
+						    <input type="radio" name="gender" id="male" value="m" class="custom">
 						    <label for="male" class="">ชาย</label>
 				    	</div>
 					    
@@ -77,7 +77,7 @@
 
 			<div class="ui-content">
 
-					<label class="center"><h1>คุณต้องการลดน้ำหนักกี่กิโลกรัม ?</h1></label>
+					<label class="center"><h1>คุณต้องการ <br>ลดน้ำหนักกี่กิโลกรัม ?</h1></label>
 					<input type="number" min="0" max="200" name="weight_lose" id="weight_lose" value="" placeholder="ตัวอย่าง : 20 " >
 
 					<a href="#page3" data-role="button" data-iconpos="right" data-icon="carat-r" class="btn_next">ถัดไป</a>
@@ -101,7 +101,7 @@
 
 			<div class="ui-content">
 
-					<label class="center"><h1>คุณออกกำลังกายบ่อยแค่ไหน ใน 1 สัปดาห์ ?</h1></label>
+					<label class="center"><h1>คุณออกกำลังกายบ่อยแค่ไหน<br> ใน 1 สัปดาห์ ?</h1></label>
 					<fieldset data-role="controlgroup" data-type="vertical" data-theme="b" id="gender-radio">
 
 					    <input type="radio" name="activity" id="no_ex" value="1.2" class="custom">
@@ -121,7 +121,7 @@
 
 					</fieldset>
 
-					<a href="#page4" data-role="button" data-iconpos="right" data-icon="carat-r" class="btn_next">ถัดไป</a>
+					<a href="#page4" id="calulate_btn" data-role="button" data-iconpos="right" data-icon="carat-r" class="btn_next">ถัดไป</a>
 			</div>	
 		</div>
 	</div>
@@ -148,22 +148,22 @@
 
 					    <input type="radio" name="mode" id="mode_easy" value="0.25" class="custom">
 					    <label for="mode_easy">
-					    	ง่าย (ใช้เวลาทั้งหมด <span id="time_month"></span>เดือน <span id="time_day"></span> วัน)
+					    	ง่าย (ใช้เวลาทั้งหมด <span id="time_month1" style="color:#f05053;"></span> เดือน <span id="time_day1" style="color:#f05053;"></span> วัน)
 					    </label>
 					 
 					    <input type="radio" name="mode" id="mode_medium" value="0.5" class="custom">
 					    <label for="mode_medium">
-					    	ปานกลาง (ใช้เวลาทั้งหมด <span id="time_month"></span>เดือน <span id="time_day"></span> วัน)
+					    	ปานกลาง (ใช้เวลาทั้งหมด <span id="time_month2" style="color:#f05053;"></span> เดือน <span id="time_day2" style="color:#f05053;"></span> วัน)
 					    </label>
 
 					    <input type="radio" name="mode" id="mode_hard" value="0.75" class="custom">
 					    <label for="mode_hard">
-					    	ยาก (ใช้เวลาทั้งหมด <span id="time_month"></span>เดือน <span id="time_day"></span> วัน)	
+					    	ยาก (ใช้เวลาทั้งหมด <span id="time_month3" style="color:#f05053;"></span> เดือน <span id="time_day3" style="color:#f05053;"></span> วัน)	
 					    </label>
 					 
 					    <input type="radio" name="mode" id="mode_harder" value="1" class="custom">
 					    <label for="mode_harder">
-					    	ยากมาก (ใช้เวลาทั้งหมด <span id="time_month"></span>เดือน <span id="time_day"></span> วัน)
+					    	ยากมาก (ใช้เวลาทั้งหมด <span id="time_month4" style="color:#f05053;"></span> เดือน <span id="time_day4" style="color:#f05053;"></span> วัน)
 					    </label>
 
 					</fieldset>
@@ -175,7 +175,171 @@
 
 </form>
 
+<script>
+function validateForm() {
+	var weight = document.forms["info"]["weight"].value;
+	var height = document.forms["info"]["height"].value;
+	var birth = document.forms["info"]["birth"].value;
+	var gender = document.forms["info"]["gender"].value;
+	var weight_lose = document.forms["info"]["weight_lose"].value;
+	var activity = document.forms["info"]["activity"].value;
+	var mode = document.forms["info"]["mode"].value;
 
+	if (weight == null || weight == "" || height == null || height == "" 
+		|| birth == null || birth == "" || gender == null || gender == "" 
+		|| weight_lose == null || weight_lose == "" || activity == null || activity == "" 
+		|| mode == null || mode == "" ) {
+	    alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+	    return false;
+	}
+
+
+
+	}
+
+document.getElementById("calulate_btn").onclick = function(){
+	// Get value
+	var sex 		= 0,
+		bdath 		= document.getElementById("birth").value,
+		dateNow 	= new Date(),
+		dateC		= dateNow.getFullYear() + "-" + (dateNow.getMonth()+1) + "-" + dateNow.getDate(),
+		age			= dateDiff(bdath, dateC),
+		weight 		= document.getElementById("weight").value,
+		height 		= document.getElementById("height").value,
+		frequency 	= 0,
+		goal 		= document.getElementById("weight_lose").value,
+		mode1 		= document.getElementById("mode_easy").value,
+		mode2 		= document.getElementById("mode_medium").value,
+		mode3 		= document.getElementById("mode_hard").value,
+		mode4 		= document.getElementById("mode_harder").value;
+
+	console.log("age : " + age);
+	console.log("weight : " + weight);
+	console.log("height : " + height);
+	console.log("goal : " + goal);
+	console.log("mode1 : " + mode1);
+	console.log("mode2 : " + mode2);
+	console.log("mode3 : " + mode3);
+	console.log("mode4 : " + mode4);
+
+	// Sex
+	if(document.getElementById("female").checked){
+		sex = document.getElementById("female").value;
+	}
+	else if(document.getElementById("male").checked){
+		sex = document.getElementById("male").value;
+	}
+	console.log("sex : " + sex);
+	// frequency
+	if(document.getElementById("no_ex").checked){
+		frequency = document.getElementById("no_ex").value;
+	}
+	else if(document.getElementById("light_ex").checked){
+		frequency = document.getElementById("light_ex").value;
+	}
+	else if(document.getElementById("moderate_ex").checked){
+		frequency = document.getElementById("moderate_ex").value;
+	}
+	else if(document.getElementById("regularly_ex").checked){
+		frequency = document.getElementById("regularly_ex").value;
+	}
+	else if(document.getElementById("heavy_ex").checked){
+		frequency = document.getElementById("heavy_ex").value;
+	}
+	console.log("frequency : " + frequency);
+
+	// Calculate
+	var bmi 			= weight/((height/100)*(height/100)),
+		bmr 			= 0,
+		calorie 		= 0,
+		calorie_min1 	= 1200,
+		calorie_max1 	= 0,
+		calorie_min2 	= 1000,
+		calorie_max2 	= 0,
+		calorie_min3 	= 800,
+		calorie_max3 	= 0,
+		calorie_min4 	= 800,
+		calorie_max4 	= 0,
+		time 			= 0,
+		time_month1 	= 0,
+		time_day1		= 0,
+		time_month2 	= 0,
+		time_day2		= 0,
+		time_month3 	= 0,
+		time_day3		= 0,
+		time_month4 	= 0,
+		time_day4		= 0;
+
+	// BMR
+	if(sex == "m") {
+		bmr = (weight*13.75)+(height*0.003)-(6.755*age)+66.5;
+	}
+	else if(sex == "f") {
+		bmr = (weight*9.563)+(height*1.85)-(4.676*age)+665.1;
+	}
+	// calorie
+	calorie = bmr*frequency;
+
+	// calorie_max
+	calorie_max1 = calorie-(mode1*7700/7);
+	calorie_max2 = calorie-(mode2*7700/7);
+	calorie_max3 = calorie-(mode3*7700/7);
+	calorie_max4 = calorie-(mode4*7700/7);
+
+	// time
+	time 		= parseInt(goal/(mode1/7));
+	time_month1 = parseInt(time/30);
+	time_day1 	= time-(time_month1*30);
+
+	time 		= parseInt(goal/(mode2/7));
+	time_month2 = parseInt(time/30);
+	time_day2 	= time-(time_month2*30);
+
+	time 		= parseInt(goal/(mode3/7));
+	time_month3 = parseInt(time/30);
+	time_day3 	= time-(time_month3*30);
+
+	time 		= parseInt(goal/(mode4/7));
+	time_month4 = parseInt(time/30);
+	time_day4 	= time-(time_month4*30);
+
+
+
+	// Output
+	document.getElementById("time_month1").innerHTML 	= time_month1;
+	document.getElementById("time_day1").innerHTML 		= time_day1;
+	document.getElementById("time_month2").innerHTML 	= time_month2;
+	document.getElementById("time_day2").innerHTML 		= time_day2;
+	document.getElementById("time_month3").innerHTML 	= time_month3;
+	document.getElementById("time_day3").innerHTML 		= time_day3;
+	document.getElementById("time_month4").innerHTML 	= time_month4;
+	document.getElementById("time_day4").innerHTML 		= time_day4;
+};
+
+function dateDiff(myVar2, myVar1){
+
+	// var myVar1 = document.getElementById('date1').value;//prompt("Enter a start date: ")
+	// var myVar2 = document.getElementById('date2').value;//prompt("Enter a end date: ")
+
+	var first_date = Date.parse(myVar1);
+	var last_date = Date.parse(myVar2);
+	var diff_date =  first_date - last_date;
+
+	var num_years = diff_date/31557600000;
+	var num_months = (diff_date % 31557600000)/2629800000;
+	var num_days = ((diff_date % 31557600000) % 2629800000)/86400000;
+
+	// var result ="";
+
+	// result +=(" " + Math.floor(num_years) + " ปี\n");
+	// result +=(" " + Math.floor(num_months) + " ดือน\n");
+	// result +=(" " + Math.floor(num_days) + " วัน");
+	
+	return Math.floor(num_years);
+}
+
+
+</script>
 </body>
 </html>
 

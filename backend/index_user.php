@@ -1,68 +1,91 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>My Weight : ADMIN</title>
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<script src="js/jquery-1.11.2.min.js"></script>
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="css/style.css" />
-	<link rel="stylesheet" href="fonts/font.css" />
+<?php 
+	session_start();
+	require('dbconnect.php');
+	require('dbsaveuser.php');
+	require('dbdeleteuser.php');
+	require('head.php');
+	
+
+	$user_sql = "SELECT* FROM user " ;
+	$result_user = mysqli_query($dbconnect,$user_sql);
 
 
-</head>
-<body>
-	<header>
-		<div id="content">
-			<div id="logo-wrapper">
-				<img src="img/logo-.png" style="max-width:60px;"> <span style="margin-left:20px; font-size:22px;" >My Weight : ADMIN</span>
-			</div>
-
-			<div class="dropdown nav navbar-nav navbar-right">
-				<button class="btn btn-personal dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-					ชื่อผู้ใช้งาน
-				</button>
-				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-					<li role="presentation"><a role="menuitem" tabindex="-1" href="#">ออกจากระบบ</a></li>
-				</ul>
-			</div>
-		</div>
-
-	</header>
+?>
 
 
 		<div id="content-wrapper">
-			<div id="content">
+			<div id="content  container ">
 				<ul class="nav nav-pills nav-justified">
-			      <li role="presentation"><a href="#food">ข้อมูลอาหาร</a></li>
-			      <li role="presentation"><a href="#exercise">ข้อมูลการออกกำลังกาย</a></li>
-			      <li role="presentation" class="active"><a href="#user">ข้อมูลผู้ใช้งาน</a></li>
+			      <li role="presentation"><a href="index_.php">ข้อมูลอาหาร</a></li>
+			      <li role="presentation"><a href="index_ex.php">ข้อมูลการออกกำลังกาย</a></li>
+			      <li role="presentation"   class="active"><a href="index_user.php">ข้อมูลผู้ใช้งาน</a></li>
 			    </ul>
 			</div>
 		</div>
-
-	<div class="content-wrapper" id="food">
+<div class="content-wrapper margin-bottom-100" id="food  container ">
 		<div id="content">
-			<table class="table">
+
+			<div class="nav navbar-nav navbar-right margin-top-50 margin-bottom-25" > 
+				<a href="infouser.php" id="add" class="add-btn" target="_blank">
+					<span class="glyphicon glyphicon-alert" aria-hidden="true" style="margin-top:5px; font-size:14px;"></span> ข้อมูลเพิ่มเติม
+				</a>
+			</div>
+
+	<table class="table table-striped table-hover margin-bottom-25 col-md-12 table-condensed " id="no-more-tables">
 		        <thead>
 		        	<tr>
 			            <th>#</th>
-			            <th>First Name</th>
-			            <th>Last Name</th>
-			            <th>Save</th>
-			            <th>Delete</th>
+
+			            <th class="numeric">น้ำหนัก</th>
+			            <th class="numeric">ส่วนสูง</th>
+			            <th class="numeric">วันเกิด</th>
+			            <th class="numeric">เพศ</th>
+			            <th class="numeric">การออกกำลังกาย</th>
+			            <th class="numeric">เป้าหมาย</th>
+			            <th class="numeric">ระดับความยาก</th>
+			            <th>บันทึก</th>
+			            <th>ลบ</th>
 		        	</tr>
 		        </thead>
 		        <tbody>
+	<?php
+
+        while($user = mysqli_fetch_array($result_user)) {
+
+
+        ?>
+        	
 		        	<tr>
-			            <th scope="row">1</th>
-			            <td><input type="text" name="" value=""></td>
-			            <td><input type="text" name="" value=""></td>
-			            <td><button data-toggle="modal" href="#popSave" id="save" class="new-btn"><span class="glyphicon glyphicon-ok" aria-hidden="true" style="margin-top:5px; font-size:14px;"></span></button></td>
-			            <td><button data-toggle="modal" href="#popDel" id="delete" class="new-btn"><span class="glyphicon glyphicon-trash" aria-hidden="true" style="margin-top:5px; font-size:14px;"></span></button></td>
+		        		<!-- Update -->
+		        		<form action="index_user.php" method="POST">
+				            <th scope="row"><?= $user["user_id"]; ?></th>
+				            <input type="text" name="user_id" value="<?= $user["user_id"]; ?>" class="hide">
+				            <td class="numeric" data-title="รายการออกกำลังกาย"><input type="text" name="user_weight" value="<?= $user["user_weight"]; ?>"></td>
+				            <td class="numeric" data-title="รายการออกกำลังกาย"><input type="text" name="user_height" value="<?= $user["user_height"]; ?>" ></td>
+				            <td class="numeric" data-title="รายการออกกำลังกาย"><input type="text" name="user_birthday" value="<?= $user["user_birthday"]; ?>" ></td>
+				            <td class="numeric" data-title="รายการออกกำลังกาย"><input type="text" name="user_gender" value="<?= $user["user_gender"]; ?>"> </td>
+				            <td class="numeric" data-title="รายการออกกำลังกาย"><input type="text" name="user_frequency" value="<?= $user["user_frequency"]; ?>"> </td>
+				            <td class="numeric" data-title="รายการออกกำลังกาย"><input type="text" name="user_goal" value="<?= $user["user_goal"]; ?>" ></td>
+				            <td class="numeric" data-title="รายการออกกำลังกาย"><input type="text" name="user_mode" value="<?= $user["user_mode"]; ?>"></td>
+		
+
+				            <td><button id="save" class="new-btn" onClick="alert('ทำการบันทึกข้อมูลเรียบร้อย')" type="submit">
+				            	<span class="glyphicon glyphicon-ok" aria-hidden="true" style="margin-top:5px; font-size:14px;"></span>
+				            	</button>
+				            </td>
+			            </form>
+
+			            <!-- Delete -->
+			            <form action="index_user.php" method="POST">
+			            	<input type="text" name="user_id_delete" value="<?= $user["user_id"]; ?>" class="hide">
+				            <td><button id="delete" class="new-btn" onClick="alert('ทำการลบข้อมูลเรียบร้อย')" >
+				            	<span class="glyphicon glyphicon-trash" aria-hidden="true" style="margin-top:5px; font-size:14px;"></span>
+				            	</button>
+				            </td>
+			            </form>
 			        </tr>
+			
+	<?php } ?>
 		        </tbody>
 		    </table>
 		</div>
@@ -71,49 +94,9 @@
 
 
 
-	
-<!-- POPUP -->
-	<div id="popSave" class="modal modal-wide fade">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	        <h4 class="modal-title">คุณได้ทำการบันทึกข้อมูลเรียบร้อยแล้ว</h4>
-	      </div>
-
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-modal" data-dismiss="modal">ตกลง</button>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-
-	<div id="popDel" class="modal modal-wide fade">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	        <h4 class="modal-title">คุณได้ทำการลบข้อมูลเรียบร้อยแล้ว</h4>
-	      </div>
-
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-modal" data-dismiss="modal">ตกลง</button>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-
-
-
 
 	<script>
 		$('.dropdown-toggle').dropdown();
-
-		$(".modal-wide").on("show.bs.modal", function() {
-		  var height = $(window).height() - 200;
-		  $(this).find(".modal-body").css("max-height", height);
-		});
-
 
 
 

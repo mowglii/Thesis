@@ -1,10 +1,10 @@
 @font-face {
-    font-family: 'fonts/thaisans_neueregular';
-    src: url('fonts/thaisansneue-regular-webfont.eot');
-    src: url('fonts/thaisansneue-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/thaisansneue-regular-webfont.woff2') format('woff2'),
-         url('fonts/thaisansneue-regular-webfont.woff') format('woff'),
-         url('fonts/thaisansneue-regular-webfont.ttf') format('truetype');
+    font-family: 'thaisans_neueregular';
+    src: url('../fonts/thaisansneue-regular-webfont.eot');
+    src: url('../fonts/thaisansneue-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/thaisansneue-regular-webfont.woff2') format('woff2'),
+         url('../fonts/thaisansneue-regular-webfont.woff') format('woff'),
+         url('../fonts/thaisansneue-regular-webfont.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 
@@ -15,8 +15,15 @@
 
 body {
 	font-size: 16px;
+	
 }
-
+body,
+input,
+select,
+textarea,
+button {
+	font-family: 'thaisans_neueregular' !important;
+}
 
 form .ui-input-text, button{
 	border-radius: 3px !important;
@@ -211,14 +218,15 @@ input, #page_ex .ui-input-search {
 #food_meal .ui-icon-delete {
 	background: #f05053 !important;
 }
-#food_meal .ui-icon-plus {
-	background: #00cdc6 !important;
+#food_meal .ui-icon-carat-r {
+	background: #0595b3 !important;
 }
 #food_meal li{
 	line-height: 1em !important;
 }
 #food_meal .food_name_width {
 	width: 50%;
+
 }
 
 #food_meal .ui-input-search{
@@ -269,6 +277,12 @@ input, #page_ex .ui-input-search {
 }
 
 
+
+.ui-listview>.ui-li-has-thumb>.ui-btn, 
+.ui-listview>.ui-li-static.ui-li-has-thumb {
+	padding-left: 5em; 
+
+}
 
 /*---------------Table--------------------------*/
 
@@ -446,37 +460,16 @@ input, #page_ex .ui-input-search {
 }
 
 
+.kcal-show-ex {
+	height: 20px;
+	width: 100%;
+	position: absolute;
+	text-align: center;
+	z-index: 2;
+	color: #fff;
+	margin-top: 0px;
+}
 
-a:visited, a:link, a:hover{
-	text-decoration: none;
-}
-.center {
-	text-align: center;
-}
-h1 {
-	font-weight: bold;
-}
-.no-padding{
-	padding: 0px;
-}
-.margin-top-25 {
-	margin-top: 25px;
-}
-.margin-left-05{
-	margin-left: .5em;
-}
-.float-left {
-	float: left;
-}
-.float-right{
-	float: right;
-}
-.text-align-r {
-	text-align: right;
-}
-.text-align-c {
-	text-align: center;
-}
 
 
 
@@ -485,12 +478,14 @@ div {
 }
 .input-style-wrapper {
 	width: 100%;
+	margin: 0 auto;
 }
 .input-style-wrapper input {
 	width: 83%;
 	float: left;
 	border-radius: 3px !important;
 }
+
 .input-style-wrapper label {
 	width: 15%;
 	float: left;
@@ -506,7 +501,7 @@ div {
 	border-radius: 3px !important;
 }
 #gender-radio .radio-gender .ui-radio .ui-btn {
-	padding: .45em 2em;
+	padding: .45em 3.4em;
 	float: left;
 }
 
@@ -517,6 +512,47 @@ div {
 }
 
 
+
+
+
+/*--------------ETC---------------------------*/
+
+
+a:visited, a:link, a:hover{
+	text-decoration: none;
+}
+.center {
+	text-align: center;
+}
+h1 {
+	font-weight: bold;
+}
+.no-padding{
+	padding: 0px;
+}
+.padding-top-15 {
+	padding-top: 15px;	 
+}
+
+.margin-top-25 {
+	margin-top: 25px;
+}
+
+.margin-left-05{
+	margin-left: .5em;
+}
+.float-left {
+	float: left;
+}
+.float-right{
+	float: right;
+}
+.text-align-r {
+	text-align: right;
+}
+.text-align-c {
+	text-align: center;
+}
 
 
 
@@ -559,7 +595,7 @@ div {
 	margin-left: 5%;
 }
 #weight-now label h3 {
-	margin-top: 0;
+
 	text-align: center;
 }
 #weight-now label {
@@ -634,6 +670,10 @@ div {
 
 
 /*-------------- PROGRESS BAR -------------*/
+
+.progressbar.progressbar-height {
+	height: 20px;
+}
 
 /*
  * Base
@@ -724,3 +764,20 @@ div {
     -o-transition:width .5s ease-in; 
     transition:width .5s ease-in; 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

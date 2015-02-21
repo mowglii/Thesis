@@ -7,9 +7,8 @@
 	    while($row = mysqli_fetch_array($result)) {
 	    	$_SESSION["user_id"] = $row["user_id"];
 	    }
-	    // echo "create session : " . $_SESSION["user_id"];
-	    // echo isset($_SESSION["user_id"]);
+	    echo "create session : " . $_SESSION["user_id"];
 	    session_write_close();
-    }    
+    }
 
 ?>

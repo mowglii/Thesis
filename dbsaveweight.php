@@ -2,14 +2,15 @@
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-	if ( $_POST["user_id"] != "" && $_POST["user_weight_weight"] != "" && $_POST["user_weight_id"] != "" && $_POST["user_weight_date"] != "") {
+	if ( $_POST["user_id"] != "" && $_POST["user_weight_weight"] != "" && $_POST["user_weight_date"] != "") {
 		$user_id = intval($_POST["user_id"]);
-		$user_weight_id = intval($_POST["user_weight_id"]);
-		$user_weight_date = intval($_POST["user_weight_date"]);
-		$user_weight = $_POST["user_weight_weight"];
 
-	    $add_weight_sql = 'INSERT INTO user_weight (user_id, user_weight_id, user_weight_date, user_weight_weight)
-	    					VALUES (' . $user_id . ', ' . $user_weight_id . ', "' . $_POST["user_weight_date"]. '", ' . $user_weight_weight . ')';
+		$user_weight_date = $_POST["user_weight_date"];
+		$user_weight_weight = $_POST["user_weight_weight"];
+
+	    $add_weight_sql = 'INSERT INTO user_weight (user_weight_date, user_weight_weight, user_id)
+	    					VALUES ("' . $_POST["user_weight_date"]. '", ' . $user_weight_weight . ',' . $user_id . ')';
+	    echo $add_weight_sql;
 	    $result_add_weight = mysqli_query($dbconnect,$add_weight_sql);
 		// echo $add_eatting_sql;
 
@@ -25,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	
 }
 else {
-	echo "not post";
+	echo "not post save weight";
 }
 
 

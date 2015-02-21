@@ -49,8 +49,6 @@
     <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
         <h1>ข้อมูลสารอาหาร</h1>
         <a href="#listpanel" data-icon="bars" data-iconpos="notext" class="ui-btn-left"></a>
-        <!-- <a href="graphweek.html" class="ui-btn ui-btn-inline ui-icon-bar ui-btn-icon-notext"></a> -->
-        <a href="graphweek.php" class="ui-btn ui-btn-inline ui-icon-pie ui-btn-icon-notext"></a>
     
     </div>
     <!-- End TOP MENU BAR -->
