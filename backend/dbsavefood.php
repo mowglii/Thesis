@@ -5,6 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["food_id"])) {
 	if ( $_POST["food_id"] != "" 
 		&& $_POST["food_type"] != "" 
 		&& $_POST["food_name"] != "" 
+		&& $_POST["food_unit"] != "" 
 		&& $_POST["food_weight"] != "" 
 		&& $_POST["food_kcal"] != ""
 		&& $_POST["food_fat"] != "" 
@@ -17,11 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["food_id"])) {
 		&& $_POST["food_vitb1"] != "" 
 		&& $_POST["food_vitb2"] != "" 
 		&& $_POST["food_calcium"] != "" 
-		&& $_POST["food_iron"] != "") {
+		&& $_POST["food_iron"] != ""
+		&& $_POST["food_ref"] != "") {
 
 		$food_id = intval($_POST["food_id"]);
 		$food_type = $_POST["food_type"];
 		$food_name = $_POST["food_name"];
+		$food_unit = $_POST["food_unit"];
 		$food_weight = intval($_POST["food_weight"]);
 		$food_kcal = intval($_POST["food_kcal"]);
 		$food_fat = intval($_POST["food_fat"]);
@@ -34,10 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["food_id"])) {
 		$food_vitb1 = intval($_POST["food_vitb1"]);
 		$food_vitb2 = intval($_POST["food_vitb2"]);
 		$food_iron = intval($_POST["food_iron"]);
+		$food_ref = $_POST["food_ref"];
 
 	    $save_food_sql = 'UPDATE food SET food_type="'.$food_type.'", food_name="'.$food_name.'", food_weight='.$food_weight.', food_kcal='.$food_kcal.'
-	         , food_fat='.$food_fat.', food_cholesterol='.$food_cholesterol.', food_protein='.$food_protein.', food_carbohydrate='.$food_carbohydrate.', food_sugar='.$food_sugar.'
-	         , food_salt='.$food_salt.', food_vita='.$food_vita.', food_vitb1='.$food_vitb1.', food_vitb2='.$food_vitb2.', food_iron='.$food_iron.' 
+	         , food_fat='.$food_fat.', food_cholesterol='.$food_cholesterol.', food_protein='.$food_protein.', food_carbohydrate='.$food_carbohydrate.'
+	         , food_sugar='.$food_sugar.', food_salt='.$food_salt.', food_vita='.$food_vita.', food_vitb1='.$food_vitb1.', food_vitb2='.$food_vitb2.'
+	         , food_iron='.$food_iron.', food_unit="'.$food_unit.'", food_ref="'.$food_ref.'" 
 
 	         WHERE food_id='.$food_id.' ';
 

@@ -29,7 +29,7 @@
                 $to   = new DateTime('today');
                 $age = $birthday->diff($to)->y;
 
-                $bmi = $weight/(($height/100)*($height/100));
+                $bmi = number_format($weight/(($height/100)*($height/100)),2);
                 $bmi_show = "";
                 $bmr = 0;
                 $cal = 0;

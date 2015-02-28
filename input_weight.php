@@ -82,7 +82,7 @@
             <li><a href="input_weight.php" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-transition="slide">สมุดบันทึกน้ำหนัก</a></li>
             <li><a href="nutation.php" class="ui-btn ui-icon-pie ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
             <li><a href="setting.php" class="ui-btn ui-icon-edit ui-btn-icon-left" data-transition="slide">แก้ไขข้อมูลส่วนตัว</a></li>
-            <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li>
+            <!-- <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li> -->
         </ul>
     </div>
     <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
@@ -99,6 +99,7 @@
     <div data-role="content" >
         <div class="ui-content" id="input-weight-wrapper">
             <form action="input_weight.php" method="post" id="weight-now" data-ajax="false">
+                
                 <label class="float-left padding-top-15" ><h3>น้ำหนักวันนี้</h3></label>
 
                 <input type="type" name="user_id" id="user_id" value="<?= $_SESSION["user_id"] ?>" style="display:none">
@@ -111,7 +112,7 @@
  
         </div>  
 
-             <div class="head-table-custom margin-top-25">
+             <div class="head-table-custom">
                 <div>ข้อมูลน้ำหนัก</div>
                 <span class="clearfix"></span>
             </div>

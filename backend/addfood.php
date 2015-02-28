@@ -57,9 +57,23 @@
 			            	<label class="col-lg-6 control-label"> ชื่ออาหาร </label> 
 			            	<div class="col-lg-6"> <input type="text" name="food_name2" value="" class="width100"> </div>
 			            </div>
+			            <div class="form-group"> 
+			            	<label class="col-lg-6 control-label"> หน่วย </label> 
+			            	<div class="col-lg-6"> <input type="text" name="food_unit2" value="" class="width100"> </div>
+			            </div>
 			            <div class="form-group">
 			            	<label class="col-lg-6 control-label">ประเภทอาหาร </label> 
-			            	<div class="col-lg-6"><input type="text" name="food_type2" value="" class="width100"> </div>
+			            	<div class="col-lg-6">
+			            		<select name="food_type2" class="width100">
+			                        <option value="อาหารจานเดียว">อาหารจานเดียว</option>
+			                        <option value="ขนมขบเคี้ยว">ขนมขบเคี้ยว</option>
+			                        <option value="ของหวาน">ของหวาน</option>
+			                        <option value="น้ำ">เครื่องดื่ม</option>
+			                        <option value="ผลไม้">ผลไม้</option>
+			                        <option value="กับข้าว">กับข้าว</option>
+									<option value="อื่นๆ">อื่นๆ</option>
+			                    </select>
+			            	</div>
 			            </div>
 		            	<div class="form-group">
 		            		<label class="col-lg-6 control-label">ปริมาณ (กรัม) </label> 
@@ -126,9 +140,18 @@
 		            		<label class="col-lg-6 control-label">เหล็ก (%) </label> 
 		            		<div class="col-lg-6"><input type="text" name="food_iron2" value="" class="width100" ></div>
 		            	</div>
+
+		            	<div class="form-group">
+		            		<label class="col-lg-6 control-label">แหล่งอ้างอิง </label> 
+		            		<div class="col-lg-6"><input type="text" name="food_ref2" value="" class="width100" ></div>
+		            	</div>
+		            	
+
+		       		
+		    
 		       		</div>
 
-		       		<button type="submit" value="" id="add" class="add-btn new-btn margin-top-100" onClick="alert('ทำการเพิ่มข้อมูลเรียบร้อย')">
+		       		<button type="submit" value="" id="add" class="add-btn col-lg-6 float-right margin-top-50" onClick="alert('ทำการเพิ่มข้อมูลเรียบร้อย')" >
 		       			<span class="glyphicon glyphicon-ok" aria-hidden="true" style="margin-top:5px; font-size:14px;"></span>
 		       			เพิ่มข้อมูล
 		       		</button>
@@ -143,6 +166,7 @@
 		function validateForm() {
 		    var food_name2 = document.forms["addform"]["food_name2"].value;
 		    var food_type2 = document.forms["addform"]["food_type2"].value;
+		    var food_unit2 = document.forms["addform"]["food_unit2"].value;
 		    var food_weight2 = document.forms["addform"]["food_weight2"].value;
 		    var food_kcal2 = document.forms["addform"]["food_kcal2"].value;
 		    var food_fat2 = document.forms["addform"]["food_fat2"].value;
@@ -158,7 +182,22 @@
 		    var food_iron2 = document.forms["addform"]["food_iron2"].value;
 
 
-		    if (food_name2 == null || food_name2 == "" || food_type2 == null || food_type2 == "" || food_weight2 == null || food_weight2 == "" || food_kcal2 == null || food_kcal2 == "" || food_fat2 == null || food_fat2 == "" || food_cholesterol2 == null || food_cholesterol2 == "" || food_protein2 == null || food_protein2 == "" || food_carbohydrate2 == null || food_carbohydrate2 == "" || food_sugar2 == null || food_sugar2 == "" || food_salt2 == null || food_salt2 == "" || food_vita2 == null || food_vita2 == "" || food_vitb12 == null || food_vitb12 == "" || food_vitb22 == null || food_vitb22 == "" || food_calcium2 == null || food_calcium2 == "" || food_iron2 == null || food_iron2 == "") {
+		    if (food_name2 == null || food_name2 == "" 
+		    	|| food_type2 == null || food_type2 == "" 
+		    	|| food_unit2 == null || food_unit2 == "" 
+		    	|| food_weight2 == null || food_weight2 == "" 
+		    	|| food_kcal2 == null || food_kcal2 == "" 
+		    	|| food_fat2 == null || food_fat2 == "" 
+		    	|| food_cholesterol2 == null || food_cholesterol2 == "" 
+		    	|| food_protein2 == null || food_protein2 == "" 
+		    	|| food_carbohydrate2 == null || food_carbohydrate2 == "" 
+		    	|| food_sugar2 == null || food_sugar2 == "" 
+		    	|| food_salt2 == null || food_salt2 == "" 
+		    	|| food_vita2 == null || food_vita2 == "" 
+		    	|| food_vitb12 == null || food_vitb12 == "" 
+		    	|| food_vitb22 == null || food_vitb22 == "" 
+		    	|| food_calcium2 == null || food_calcium2 == "" 
+		    	|| food_iron2 == null || food_iron2 == "") {
 		        alert("กรุณากรอกข้อมูลให้ครบถ้วน");
 		        return false;
 		    }

@@ -3,16 +3,11 @@
     unset($_SESSION["user_id"]); 
     require('dbconnect.php');
     require('dbfinduserid.php');
-    require('dbshowuser.php');
     require('dbsavesetting.php');
+    require('dbshowuser.php');
     require('calculate.php');
-
-    if($user_gender = 'f'){
-        $user_gender = 'หญิง';
-    }
-    if ($user_gender = 'm') {
-        $user_gender = 'ชาย';
-    }
+   
+    
 ?>
 
 
@@ -43,10 +38,10 @@
             <li><a href="input_weight.php" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-transition="slide">สมุดบันทึกน้ำหนัก</a></li>
             <li><a href="nutation.php" class="ui-btn ui-icon-pie ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
             <li><a href="setting.php" class="ui-btn ui-icon-edit ui-btn-icon-left" data-transition="slide">แก้ไขข้อมูลส่วนตัว</a></li>
-            <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li>
+            <!-- <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li> -->
         </ul>
     </div> 
-<form action="index2.html" method="post" name="info" id="info-calculate">
+<form action="setting.php" method="post" data-ajax="false">
     <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
         <h1>แก้ไขข้อมูลส่วนตัว</h1>
         <a href="#listpanel" data-icon="bars" data-iconpos="notext" class="ui-btn-left"></a>
@@ -66,23 +61,34 @@
 
             <div id="setting-wrapper">
                 <div id="content-wrapper" class="info-wrapper">
-                    <input type="number" min="0" max="500" step="1" name="user_id" id="weight" value="<?= $user["user_id"]; ?>"class="float-left" style="display:none">
+                    <input type="number" min="0" max="500" step="1" name="user_id" value="<?= $user["user_id"]; ?>"class="float-left" style="display:none">
                     <div class="input-style-wrapper clearfix">
-                        <label style="line-height:2em;">น้ำหนัก</label>
-                        <input type="number" min="0" max="500" step="1" name="user_weight" id="weight" value="<?= $user["user_weight"]; ?>"class="float-left">
+                        <label style="line-height:2em; "><b>น้ำหนัก</b></label>
+                        <input type="number" min="0" max="200" id="user_height" value="<?= $user["user_weight"]; ?>" disabled="disabled" >
                     </div>
                     <div class="input-style-wrapper clearfix" >
-                        <label style="line-height:2em;">ส่วนสูง</label>
-                        <input type="number" min="0" max="200" name="height" id="user_height" value="<?= $user["user_height"]; ?>"  class="float-left">
+                        <label style="line-height:2em;"><b>ส่วนสูง</b></label>
+                        <input type="number" min="0" max="200" id="user_height"name="user_height" value="<?= $user["user_height"]; ?>"  class="float-left" >
                     </div>
                     <div class="input-style-wrapper clearfix">
-                        <label style="line-height:2em;">วันเกิด</label>
-                        <input type="date" name="user_birthday" id="birth" value="<?= $user["user_birthday"]; ?>" class="float-left" disabled="disabled">
+                        <label style="line-height:2em;"><b>วันเกิด</b></label>
+                        <input type="date" id="birth" value="<?= $user["user_birthday"]; ?>" class="float-left" disabled="disabled">
                     </div>
 
+
+                    <?php
+
+                        if($user["user_birthday"] = 'f'){
+                            $user_gender_for_show = 'หญิง';
+                        }
+                        else {
+                            $user_gender_for_show = 'ชาย';
+                        }
+
+                    ?>
                     <div class="input-style-wrapper clearfix">
-                        <label style="line-height:2em;">เพศ</label>
-                        <input type="text" name="birth" id="birth" value="<?= $user["user_gender"]; ?>" class="float-left" disabled="disabled">
+                        <label style="line-height:2em;"><b>เพศ</b></label>
+                        <input type="text" id="birth" value="<?= $user_gender_for_show; ?>" class="float-left" disabled="disabled">
                     </div>
                 </div>
             </div>
@@ -91,31 +97,81 @@
             <div id="setting-wrapper">
                 <div id="content-wrapper" class="info-wrapper">
                     <div class="input-style-wrapper clearfix">
-                        <label style="line-height:2em;">ต้องการลด(กก.)</label>
+                        <label style="line-height:2em;"><b>ต้องการลด(กก.)</b></label>
                         <input type="number" min="0" max="500" step="1" name="user_goal" id="goal" value="<?= $user["user_goal"]; ?>" class="float-left">
                     </div>
-                    <div>
-                        <label>ความถี่ในการออกกำลังกาย</label>
-                        <select data-theme="d" >
-                            <option value="1.2">ไม่ได้ออกกำลังกายเลย - 1 วันต่อสัปดาห์</option>
-                            <option value="1.375">1-2 วัน ต่อสัปดาห์</option>
-                            <option value="1.55">3-5 วัน ต่อสัปดาห์</option>
-                            <option value="1.725">6-7 วันต่อสัปดาห์</option>
-                            <option value="1.9">เช้า-เย็น 6-7 วันต่อสัปดาห์</option>
+
+                    <?php
+
+                        $class_frequency1 = "";
+                        $class_frequency2 = "";
+                        $class_frequency3 = "";
+                        $class_frequency4 = "";
+                        $class_frequency5 = "";
+
+                        if ($user["user_frequency"] == "1.2") {
+                            $class_frequency1 = "selected";
+                        }
+                        elseif ($user["user_frequency"] == "1.375") {
+                            $class_frequency2 = "selected";
+                        }
+                        elseif ($user["user_frequency"] == "1.55") {
+                            $class_frequency3 = "selected";
+                        }
+                        elseif ($user["user_frequency"] == "1.725") {
+                            $class_frequency4 = "selected";
+                        }
+                        elseif ($user["user_frequency"] == "1.9") {
+                            $class_frequency5 = "selected";
+                        }
+
+                    ?>
+                    <div style="margin-top:20px;">
+                        <label><b>ความถี่ในการออกกำลังกาย</b></label>
+                        <select data-theme="d" name="user_frequency">
+                            <option value="1.2" <?= $class_frequency1 ?> >ไม่ได้ออกกำลังกายเลย - 1 วันต่อสัปดาห์</option>
+                            <option value="1.375" <?= $class_frequency2 ?> >1-2 วัน ต่อสัปดาห์</option>
+                            <option value="1.55" <?= $class_frequency3 ?> >3-5 วัน ต่อสัปดาห์</option>
+                            <option value="1.725" <?= $class_frequency4 ?> >6-7 วันต่อสัปดาห์</option>
+                            <option value="1.9" <?= $class_frequency5 ?> >เช้า-เย็น 6-7 วันต่อสัปดาห์</option>
                         </select>
                     </div>
+
+                    <?php
+
+                        $class_mode1 = "";
+                        $class_mode2 = "";
+                        $class_mode3 = "";
+                        $class_mode4 = "";
+
+                        if ($user["user_mode"] == "0.25") {
+                            $class_mode1 = "selected";
+                        }
+                        elseif ($user["user_mode"] == "0.5") {
+                            $class_mode2 = "selected";
+                        }
+                        elseif ($user["user_mode"] == "0.75") {
+                            $class_mode3 = "selected";
+                        }
+                        elseif ($user["user_mode"] == "1") {
+                            $class_mode4 = "selected";
+                        }
+
+                    ?>
                     <div >
-                        <label>รูปแบบการลดน้ำหนัก</label>
-                        <select data-theme="d" >
-                            <option value="0.25">ง่าย (ลด 0.25 กิโลกรัม ต่อสัปดาห์)</option>
-                            <option value="0.5">ปานกลาง (ลด 0.5 กิโลกรัม ต่อสัปดาห์)</option>
-                            <option value="0.75">ยาก (ลด 0.75 กิโลกรัม ต่อสัปดาห์) </option>
-                            <option value="1">ยากมาก (ลด 1 กิโลกรัม ต่อสัปดาห์)</option>
+                        <label><b>รูปแบบการลดน้ำหนัก</b></label>
+                        <select data-theme="d" name="user_mode">
+                            <option value="0.25" <?= $class_mode1 ?> >ง่าย (ลด 0.25 กิโลกรัม ต่อสัปดาห์)</option>
+                            <option value="0.5" <?= $class_mode2 ?> >ปานกลาง (ลด 0.5 กิโลกรัม ต่อสัปดาห์)</option>
+                            <option value="0.75" <?= $class_mode3 ?> >ยาก (ลด 0.75 กิโลกรัม ต่อสัปดาห์) </option>
+                            <option value="1" <?= $class_mode4 ?> >ยากมาก (ลด 1 กิโลกรัม ต่อสัปดาห์)</option>
                         </select>
                     </div>
                 </div>
+
             </div>
-            <button href="#" type="submit" data-icon="check" > บันทึกข้อมูล</button>
+                 <button type="submit" data-icon="check" style="margin-top:20px;"> บันทึกข้อมูล</button>
+           
         </div>
         <!-- end  -->
 
@@ -134,7 +190,7 @@
             <p><?= $bmi_show ?></p>
         </div>
         <div>
-            <p>แคลอรี่ที่ได้รับ</p>
+            <p>ปกติได้รับ</p>
             <h1><?=  $cal ?></h1>
             <p>Kcal/วัน</p>
         </div>

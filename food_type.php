@@ -1,8 +1,10 @@
 <?php 
     require('dbconnect.php');
     require('dbfinduserid.php');
+    require('dbaddfood.php');
     require('dbshowfood.php');
-    
+
+    $link_type = $_GET["type"];
 ?>
 
 
@@ -24,65 +26,63 @@
     <link rel="stylesheet" href="css/style.css" />
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 
-   
-
 </head>
 <body>
 
 <!-- PAGE_FOOD_TYPE -->
 <div id="page_food_type" data-role="page" data-theme="a">
-    <div data-role="panel" id="listpanel" data-display="push">
+   <!--  <div data-role="panel" id="listpanel" data-display="push">
         <ul data-role="listview" data-theme="d">
             <li><a href="index2.php" class="ui-btn ui-icon-home ui-btn-icon-left" data-transition="slide">หน้าแรก</a></li>
             <li><a href="input_weight.php" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-transition="slide">สมุดบันทึกน้ำหนัก</a></li>
             <li><a href="nutation.php" class="ui-btn ui-icon-pie ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
             <li><a href="setting.php" class="ui-btn ui-icon-gear ui-btn-icon-left" data-transition="slide">ตั้งค่า</a></li>
         </ul>
-    </div>            
+    </div>   -->          
 
     <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
-        <h1>อาหาร</h1>
-        <a href="#" data-rel="back" data-icon="carat-l" data-iconpos="notext"></a>
-        <a href="#" data-rel="search" data-icon="plus" data-iconpos="notext"></a>
+        <h1>รายการอาหาร</h1>
+        <a href="index2.php"  data-icon="carat-l" data-iconpos="notext" data-transition="slide"></a>
+        <a href="food_add.php?type=<?= $link_type ?>" data-icon="plus" data-iconpos="notext" data-transition="slide" data-ajax="false"></a>
         
     </div>
     <!-- End TOP MENU BAR -->
 
-    <div data-filter="true" data-filter-placeholder="Search">
+    <div>
         <div data-role="content" data-theme="b" id="food_type">
             <ul data-role="listview" class="fff">
                 <li id="meal" >
-                    <a href="#food_type_meal">
+                    <a href="#food_type_meal" data-transition="slide">
                         <img src="img/meal.jpg">
                         <h1>อาหารจานเดียว</h1>
                     </a>
                 </li>
                 <li id="sweet">
-                    <a href="#food_type_sweet">
+                    <a href="#food_type_sweet" data-transition="slide">
                         <img src="img/sweet.jpg">
                         <h1>ของหวาน</h1>
                     </a>
                 </li>
                 <li id="snack">
-                    <a href="#food_type_snack">
+                    <a href="#food_type_snack" data-transition="slide">
                         <img src="img/snack.jpg">
                         <h1>ขนมขบเคี้ยว</h1>
                     </a>
                 </li>
                 <li id="fruit">
-                    <a href="#food_type_fruit">
+                    <a href="#food_type_fruit" data-transition="slide">
                         <img src="img/fruit.jpg">
                         <h1>ผลไม้</h1>
                     </a>
                 </li>
                 <li id="drink">
-                    <a href="#food_type_drink">
+                    <a href="#food_type_drink" data-transition="slide">
                         <img src="img/drink.jpg">
                         <h1>เครื่องดื่ม</h1>
                     </a>
                 </li>
                 <li id="etc">
-                    <a href="#food_type_etc">
+                    <a href="#food_type_etc" data-transition="slide">
                         <img src="img/etc.jpg">
                         <h1>อื่นๆ</h1>
                     </a>
@@ -103,8 +103,8 @@
 <div id="food_type_meal" data-role="page" data-theme="a">
     <div data-role="panel" id="listpanel" data-display="push">
         <ul data-role="listview" data-theme="d">
-            <li><a href="index2.html" class="ui-btn ui-icon-home ui-btn-icon-left">หน้าแรก</a></li>
-            <li><a href="graphweek" class="ui-btn ui-icon-calendar ui-btn-icon-left">สมุดบันทึกน้ำหนัก</a></li>
+            <li><a href="index2.html" class="ui-btn ui-icon-home ui-btn-icon-left" data-transition="slide">หน้าแรก</a></li>
+            <li><a href="graphweek" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-transition="slide">สมุดบันทึกน้ำหนัก</a></li>
             <li><a href="nutation.php" class="ui-btn ui-icon-pie ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
             <li><a href="setting.php" class="ui-btn ui-icon-edit ui-btn-icon-left" data-transition="slide">แก้ไขข้อมูลส่วนตัว</a></li>
             <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li>
@@ -114,7 +114,7 @@
     <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
         
         <h1>อาหารจานเดียว</h1>
-        <a href="#" data-rel="back" data-icon="carat-l" data-iconpos="notext"></a>
+        <a href="#" data-rel="back" data-icon="carat-l" data-iconpos="notext" data-transition="slide"></a>
   
     </div>
     <!-- End TOP MENU BAR -->
@@ -133,13 +133,13 @@
         ?>
 
         <li data-foodname="<?= $food["food_name"]; ?>" data-foodkcal="<?= $food["food_kcal"]; ?>" data-foodid="<?= $food["food_id"]; ?>">
-            <a href="#add_meal " data-rel="popup" data-position-to="window" data-transition="slideup" class="add_food_btn1">
+            <a href="#add_meal" data-rel="popup" data-position-to="window" data-transition="slideup" class="add_food_btn1">
                 <img src="img/meal.jpg" >
                 <h1 class="food_name_width"><?= $food["food_name"]; ?></h1>
                 <span class="ui-li-aside"><h1><?= $food["food_kcal"]; ?> Kcal</h1></span>
                 
             </a>
-            <a href="food_detail.php?id=<?= $food["food_id"]; ?>" data-icon="carat-r" data-iconpos="right" >add</a>
+            <a href="food_detail.php?id=<?= $food["food_id"]; ?>" data-icon="carat-r" data-iconpos="right" data-transition="slide">add</a>
 
         </li>
 
@@ -166,7 +166,7 @@
 
         <div data-role="popup" id="add_meal" data-position-to="window" data-theme="a">
 
-            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right" data-transition="slidedown">Close</a>
 
             <div data-role="header" ><h1>เพิ่มรายการอาหาร</h1></div>
             <div data-role="content">     
@@ -197,18 +197,18 @@
 <div id="food_type_sweet" data-role="page" data-theme="a">
     <div data-role="panel" id="listpanel" data-display="push">
         <ul data-role="listview" data-theme="d">
-            <li><a href="index2.html" class="ui-btn ui-icon-home ui-btn-icon-left">หน้าแรก</a></li>
-            <li><a href="graphweek" class="ui-btn ui-icon-calendar ui-btn-icon-left">สมุดบันทึกน้ำหนัก</a></li>
+            <li><a href="index2.html" class="ui-btn ui-icon-home ui-btn-icon-left" data-transition="slide">หน้าแรก</a></li>
+            <li><a href="graphweek" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-transition="slide">สมุดบันทึกน้ำหนัก</a></li>
             <li><a href="nutation.php" class="ui-btn ui-icon-pie ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
             <li><a href="setting.php" class="ui-btn ui-icon-edit ui-btn-icon-left" data-transition="slide">แก้ไขข้อมูลส่วนตัว</a></li>
             <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li>
         </ul>
     </div>          
 
-    <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
+    <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a" >
         
         <h1>ของหวาน</h1>
-        <a href="#" data-rel="back" data-icon="carat-l" data-iconpos="notext"></a>
+        <a href="#" data-rel="back" data-icon="carat-l" data-iconpos="notext" data-transition="slide"></a>
   
     </div>
     <!-- End TOP MENU BAR -->
@@ -227,13 +227,13 @@
         ?>
 
         <li data-foodname="<?= $food["food_name"]; ?>" data-foodkcal="<?= $food["food_kcal"]; ?>" data-foodid="<?= $food["food_id"]; ?>">
-            <a href="food_detail.php?id=<?= $food["food_id"]; ?>">
+            <a href="#add_sweet" data-rel="popup" data-position-to="window" data-transition="slideup" class="add_food_btn2" >
                 <img src="img/sweet.jpg" >
                 <h1 class="food_name_width"><?= $food["food_name"]; ?></h1>
                 <span class="ui-li-aside"><h1><?= $food["food_kcal"]; ?> Kcal</h1></span>
                 
             </a>
-            <a href="#add_sweet" class="add_food_btn2" data-icon="plus" data-iconpos="right" data-rel="popup" data-position-to="window" data-transition="slideup">add</a>
+            <a href="food_detail.php?id=<?= $food["food_id"]; ?>"  data-icon="carat-r" data-iconpos="right" data-transition="slide">add</a>
 
         </li>
 
@@ -260,7 +260,7 @@
 
         <div data-role="popup" id="add_sweet" data-position-to="window" data-theme="a">
 
-            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right" data-transition="slidedown">Close</a>
 
             <div data-role="header" ><h1>เพิ่มรายการอาหาร</h1></div>
             <div data-role="content">     
@@ -295,8 +295,8 @@
 <div id="food_type_snack" data-role="page" data-theme="a">
     <div data-role="panel" id="listpanel" data-display="push">
         <ul data-role="listview" data-theme="d">
-            <li><a href="index2.html" class="ui-btn ui-icon-home ui-btn-icon-left">หน้าแรก</a></li>
-            <li><a href="graphweek" class="ui-btn ui-icon-calendar ui-btn-icon-left">สมุดบันทึกน้ำหนัก</a></li>
+            <li><a href="index2.html" class="ui-btn ui-icon-home ui-btn-icon-left" data-transition="slide">หน้าแรก</a></li>
+            <li><a href="graphweek" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-transition="slide">สมุดบันทึกน้ำหนัก</a></li>
             <li><a href="nutation.php" class="ui-btn ui-icon-pie ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
             <li><a href="setting.php" class="ui-btn ui-icon-edit ui-btn-icon-left" data-transition="slide">แก้ไขข้อมูลส่วนตัว</a></li>
             <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li>
@@ -306,7 +306,7 @@
     <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
         
         <h1>ขนมขบเคี้ยว</h1>
-        <a href="#" data-rel="back" data-icon="carat-l" data-iconpos="notext"></a>
+        <a href="#" data-rel="back" data-icon="carat-l" data-iconpos="notext" data-transition="slide"></a>
   
     </div>
     <!-- End TOP MENU BAR -->
@@ -325,13 +325,13 @@
         ?>
 
         <li data-foodname="<?= $food["food_name"]; ?>" data-foodkcal="<?= $food["food_kcal"]; ?>" data-foodid="<?= $food["food_id"]; ?>">
-            <a href="food_detail.php?id=<?= $food["food_id"]; ?>">
+            <a href="#add_snack " data-rel="popup" data-position-to="window" data-transition="slideup" class="add_food_btn3">
                 <img src="img/drink.jpg" >
                 <h1 class="food_name_width"><?= $food["food_name"]; ?></h1>
                 <span class="ui-li-aside"><h1><?= $food["food_kcal"]; ?> Kcal</h1></span>
                 
             </a>
-            <a href="#add_snack" class="add_food_btn3" data-icon="plus" data-iconpos="right" data-rel="popup" data-position-to="window" data-transition="slideup">add</a>
+            <a href="food_detail.php?id=<?= $food["food_id"]; ?>" data-icon="carat-r" data-iconpos="right" data-transition="slide">add</a>
 
         </li>
 
@@ -358,7 +358,7 @@
 
         <div data-role="popup" id="add_snack" data-position-to="window" data-theme="a">
 
-            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right" data-transition="slidedown">Close</a>
 
             <div data-role="header" ><h1>เพิ่มรายการอาหาร</h1></div>
             <div data-role="content">     
@@ -390,8 +390,8 @@
 <div id="food_type_fruit" data-role="page" data-theme="a">
     <div data-role="panel" id="listpanel" data-display="push">
         <ul data-role="listview" data-theme="d">
-            <li><a href="index2.html" class="ui-btn ui-icon-home ui-btn-icon-left">หน้าแรก</a></li>
-            <li><a href="graphweek" class="ui-btn ui-icon-calendar ui-btn-icon-left">สมุดบันทึกน้ำหนัก</a></li>
+            <li><a href="index2.html" class="ui-btn ui-icon-home ui-btn-icon-left" data-transition="slide">หน้าแรก</a></li>
+            <li><a href="graphweek" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-transition="slide">สมุดบันทึกน้ำหนัก</a></li>
             <li><a href="nutation.php" class="ui-btn ui-icon-pie ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
             <li><a href="setting.php" class="ui-btn ui-icon-edit ui-btn-icon-left" data-transition="slide">แก้ไขข้อมูลส่วนตัว</a></li>
             <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li>
@@ -401,7 +401,7 @@
     <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
         
         <h1>ผลไม้</h1>
-        <a href="#" data-rel="back" data-icon="carat-l" data-iconpos="notext"></a>
+        <a href="#" data-rel="back" data-icon="carat-l" data-iconpos="notext" data-transition="slide"></a>
   
     </div>
     <!-- End TOP MENU BAR -->
@@ -420,13 +420,13 @@
         ?>
 
         <li data-foodname="<?= $food["food_name"]; ?>" data-foodkcal="<?= $food["food_kcal"]; ?>" data-foodid="<?= $food["food_id"]; ?>">
-            <a href="food_detail.php?id=<?= $food["food_id"]; ?>">
+            <a href="#add_fruit " data-rel="popup" data-position-to="window" data-transition="slideup" class="add_food_btn4">
                 <img src="img/drink.jpg" >
                 <h1 class="food_name_width"><?= $food["food_name"]; ?></h1>
                 <span class="ui-li-aside"><h1><?= $food["food_kcal"]; ?> Kcal</h1></span>
                 
             </a>
-            <a href="#add_fruit" class="add_food_btn4" data-icon="plus" data-iconpos="right" data-rel="popup" data-position-to="window" data-transition="slideup">add</a>
+            <a href="food_detail.php?id=<?= $food["food_id"]; ?>" data-icon="carat-r" data-iconpos="right" data-transition="slide">add</a>
 
         </li>
 
@@ -453,7 +453,7 @@
 
         <div data-role="popup" id="add_fruit" data-position-to="window" data-theme="a">
 
-            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right" data-transition="slidedown">Close</a>
 
             <div data-role="header" ><h1>เพิ่มรายการอาหาร</h1></div>
             <div data-role="content">     
@@ -485,8 +485,8 @@
 <div id="food_type_drink" data-role="page" data-theme="a">
     <div data-role="panel" id="listpanel" data-display="push">
         <ul data-role="listview" data-theme="d">
-            <li><a href="index2.html" class="ui-btn ui-icon-home ui-btn-icon-left">หน้าแรก</a></li>
-            <li><a href="graphweek" class="ui-btn ui-icon-calendar ui-btn-icon-left">สมุดบันทึกน้ำหนัก</a></li>
+            <li><a href="index2.html" class="ui-btn ui-icon-home ui-btn-icon-left" data-transition="slide">หน้าแรก</a></li>
+            <li><a href="graphweek" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-transition="slide">สมุดบันทึกน้ำหนัก</a></li>
             <li><a href="nutation.php" class="ui-btn ui-icon-pie ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
             <li><a href="setting.php" class="ui-btn ui-icon-edit ui-btn-icon-left" data-transition="slide">แก้ไขข้อมูลส่วนตัว</a></li>
             <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li>
@@ -496,7 +496,7 @@
     <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
         
         <h1>เครื่องดื่ม</h1>
-        <a href="#" data-rel="back" data-icon="carat-l" data-iconpos="notext"></a>
+        <a href="#" data-rel="back" data-icon="carat-l" data-iconpos="notext" data-transition="slide"></a>
   
     </div>
     <!-- End TOP MENU BAR -->
@@ -515,13 +515,13 @@
         ?>
 
         <li data-foodname="<?= $food["food_name"]; ?>" data-foodkcal="<?= $food["food_kcal"]; ?>" data-foodid="<?= $food["food_id"]; ?>">
-            <a href="food_detail.php?id=<?= $food["food_id"]; ?>">
+            <a href="#add_drink" data-rel="popup" data-position-to="window" data-transition="slideup" class="add_food_btn5"  >
                 <img src="img/drink.jpg" >
                 <h1 class="food_name_width"><?= $food["food_name"]; ?></h1>
                 <span class="ui-li-aside"><h1><?= $food["food_kcal"]; ?> Kcal</h1></span>
                 
             </a>
-            <a href="#add_drink" class="add_food_btn5" data-icon="plus" data-iconpos="right" data-rel="popup" data-position-to="window" data-transition="slideup">add</a>
+            <a href="food_detail.php?id=<?= $food["food_id"]; ?>"  data-icon="carat-r" data-iconpos="right" data-transition="slide">add</a>
 
         </li>
 
@@ -548,7 +548,7 @@
 
         <div data-role="popup" id="add_drink" data-position-to="window" data-theme="a">
 
-            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right" data-transition="slidedown">Close</a>
 
             <div data-role="header" ><h1>เพิ่มรายการอาหาร</h1></div>
             <div data-role="content">     
@@ -578,8 +578,8 @@
 <div id="food_type_etc" data-role="page" data-theme="a">
     <div data-role="panel" id="listpanel" data-display="push">
         <ul data-role="listview" data-theme="d">
-            <li><a href="index2.html" class="ui-btn ui-icon-home ui-btn-icon-left">หน้าแรก</a></li>
-            <li><a href="graphweek" class="ui-btn ui-icon-calendar ui-btn-icon-left">สมุดบันทึกน้ำหนัก</a></li>
+            <li><a href="index2.html" class="ui-btn ui-icon-home ui-btn-icon-left" data-transition="slide">หน้าแรก</a></li>
+            <li><a href="graphweek" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-transition="slide">สมุดบันทึกน้ำหนัก</a></li>
             <li><a href="nutation.php" class="ui-btn ui-icon-pie ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
             <li><a href="setting.php" class="ui-btn ui-icon-edit ui-btn-icon-left" data-transition="slide">แก้ไขข้อมูลส่วนตัว</a></li>
             <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li>
@@ -589,7 +589,7 @@
     <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
         
         <h1>อื่นๆ</h1>
-        <a href="#" data-rel="back" data-icon="carat-l" data-iconpos="notext"></a>
+        <a href="#" data-rel="back" data-icon="carat-l" data-iconpos="notext" data-transition="slide"></a>
   
     </div>
     <!-- End TOP MENU BAR -->
@@ -608,13 +608,13 @@
         ?>
 
         <li data-foodname="<?= $food["food_name"]; ?>" data-foodkcal="<?= $food["food_kcal"]; ?>" data-foodid="<?= $food["food_id"]; ?>">
-            <a href="food_detail.php?id=<?= $food["food_id"]; ?>">
+            <a href="#add_etc" data-rel="popup" data-position-to="window" data-transition="slideup"  class="add_food_btn6">
                 <img src="img/etc.jpg" >
                 <h1 class="food_name_width"><?= $food["food_name"]; ?></h1>
                 <span class="ui-li-aside"><h1><?= $food["food_kcal"]; ?> Kcal</h1></span>
                 
             </a>
-            <a href="#add_etc" class="add_food_btn6" data-icon="plus" data-iconpos="right" data-rel="popup" data-position-to="window" data-transition="slideup">add</a>
+            <a href="food_detail.php?id=<?= $food["food_id"]; ?>"  data-icon="carat-r" data-iconpos="right" data-transition="slide">add</a>
 
         </li>
 
@@ -641,7 +641,7 @@
 
         <div data-role="popup" id="add_etc" data-position-to="window" data-theme="a">
 
-            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right" data-transition="slidedown">Close</a>
 
             <div data-role="header" ><h1>เพิ่มรายการอาหาร</h1></div>
             <div data-role="content">     
@@ -665,6 +665,10 @@
             </div>
         </div>
 </div>
+
+
+
+
 
 </body>
 </html>

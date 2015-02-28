@@ -3,13 +3,20 @@
     unset($_SESSION["user_id"]); 
     require('dbconnect.php');
 
+    
+
     require('dbsaveinfo.php');
     require('dbsaveeatting.php');
     require('dbsaveactivities.php');
 
+    require('dbaddexer.php');
+
+
     require('dbfinduserid.php');
     require('dbshoweatting.php');
     require('dbshowactivities.php');
+
+
 
     require('calculate.php');
 
@@ -20,7 +27,7 @@
     $step3 = intval($cal_max/2) ;
     
 
-    //  Step 1 : kcal bar calulate
+    // kcal bar calulate
     $cal_sum_yes = 0;
     $cal_sum_now = 0;
 
@@ -38,7 +45,7 @@
 
 
 
-    // Step 2 : Set bar color        
+    // Set bar color        
     $barColor_yes = "progressbar-green";
     $barColor_now = "progressbar-green";
 
@@ -64,9 +71,10 @@
     }
 
 
-    // Step 3 : Set bar width
+    // Set eat bar width
     $barWidth_yes = 0;
     $barWidth_now = 0;
+
 
     // Yesterday
     if ($cal_yes>=0) {
@@ -84,7 +92,7 @@
     }
 
 
-    // Step 4 : exer bar calulate
+    // exer bar calulate
     $sum_exer_yes = 0;
     $sum_exer_now = 0;
 
@@ -99,6 +107,30 @@
         if ($activity["activities_date"] == $now) {
             $sum_exer_now += intval($activity["activities_duration"])*(double)$activity["exer_kcal"];
         }
+    }
+
+
+    // Set eat bar width
+    $barWidth_exer_yes = 0;
+    $barWidth_exer_now = 0;
+    $exer_max = 500;
+
+    // Yesterday
+    if ($sum_exer_yes>=0) {
+        $barWidth_exer_yes = intval( ($sum_exer_yes*100)/$exer_max );
+
+    } 
+    if ($sum_exer_yes > 500) {
+        $barWidth_exer_yes = 500;
+    }
+
+    // Now
+    if ($sum_exer_now>=0) {
+        $barWidth_exer_now = intval( ($sum_exer_now*100)/$exer_max );
+
+    } 
+    if ($sum_exer_now > 500) {
+        $barWidth_exer_now = 500;
     }
 
 ?>
@@ -125,10 +157,6 @@
 
 
 
-
-<!-- ============================================================================================================================================= -->
-<!-- ============================================================================================================================================= -->
-<!-- ============================================================================================================================================= -->
 <!-- PAGE 2 -->
 <div id="page2" data-role="page" data-theme="a">
     <div data-role="panel" id="listpanel" data-display="push">
@@ -137,13 +165,13 @@
             <li><a href="input_weight.php" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-transition="slide">สมุดบันทึกน้ำหนัก</a></li>
             <li><a href="nutation.php" class="ui-btn ui-icon-pie ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
             <li><a href="setting.php" class="ui-btn ui-icon-edit ui-btn-icon-left" data-transition="slide">แก้ไขข้อมูลส่วนตัว</a></li>
-            <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li>
+            <!-- <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li> -->
         </ul>
     </div>          
 
     <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
         <h1>MY WEIGHT</h1>
-        <a href="#listpanel" data-icon="bars" data-iconpos="notext"></a>
+        <a href="#listpanel" data-icon="bars" data-iconpos="notext" ></a>
         
     </div>
     <!-- End TOP MENU BAR -->
@@ -151,8 +179,9 @@
     <div data-role="header" >
         <div data-role="navbar" data-position="fixed" data-fullscreen="true" data-id="mynav" id="btn_black">
             <ul>
-                <li><a href="#page1" class="btn_yesterday">เมื่อวาน</a></li>
-                <li><a href="#page2" class="btn_now ui-btn-active" >วันนี้</a></li>
+                <!-- <li><a href="#page1" class="btn_yesterday" data-transition="fade">เมื่อวาน</a></li> -->
+                <?php  $date = date('Y-m-d');  ?>
+                <li><a href="#page2" class="btn_now ui-btn-active" data-transition="fade">วันนี้ : <?= $date ?></a></li>
             </ul>
         </div>    
     </div> 
@@ -162,14 +191,14 @@
         <div>  
             <div class="progressbar <?= $barColor_now ?>">
                 <div class="progressbar-inner" style="width:<?= $barWidth_now ?>%;">
-                    <h1 class="kcal-show">Gain : <?= $cal_now ?> kcal</h1>
+                    <h1 class="kcal-show">ได้รับ : <?= $cal_now ?> kcal</h1>
                 </div>
             </div>
 
 
             <div class="progressbar progressbar-green progressbar-height">
-                <div class="progressbar-inner" style="width:<?= $barWidth ?>%;">
-                    <p class="kcal-show-ex">Burned : <?= $sum_exer_now ?> kcal</p>
+                <div class="progressbar-inner" style="width:<?= $barWidth_exer_now ?>%;">
+                    <p class="kcal-show-ex">เผาผลาญ : <?= $sum_exer_now ?> kcal</p>
                 </div>
             </div>
         </div>
@@ -178,10 +207,11 @@
 
     <div data-role="header" >
         <div data-role="navbar" data-position="fixed" data-fullscreen="true" data-id="mynav" id="btn_white">
-            <ul id="section">
-                <li><a href="#" data-iconpos="top"><img src="img/min.png" ><br>Min : <?=  $cal_min ?></a></li>
-                <li><a href="#" data-iconpos="top"><img src="img/max.png" ><br>Max : <?=  $cal_max ?></a></li>
-            </ul>
+            <div class="ui-grid-b">
+              <div class="ui-block-a min" >Min : <?=  $cal_min ?></div>
+              <div class="ui-block-b" ><img src="img/mmm.png" ></div>
+              <div class="ui-block-c max" >Max : <?=  $cal_max ?></div>
+            </div>
         </div>    
     </div>
     <!-- End MIN & MAX  -->
@@ -207,7 +237,7 @@
 
             <div class="head-table-custom">
                 <div>อาหารเช้า</div>
-                <a href="food_type.php?type=0" data-role="button" data-icon="plus" data-iconpos="notext" data-ajax="false"></a>
+                <a href="food_type.php?type=0" data-role="button" data-icon="plus" data-iconpos="notext" data-ajax="false" data-transition="slide"></a>
                 <span class="clearfix"></span>
             </div>
             <table data-role="table" class="ui-table table-custom" id="tb_brakefast">
@@ -235,7 +265,7 @@
 
             <div class="head-table-custom margin-top-25">
                 <div>อาหารกลางวัน</div>
-                <a href="food_type.php?type=1" data-role="button" data-icon="plus" data-iconpos="notext" data-ajax="false"></a>
+                <a href="food_type.php?type=1" data-role="button" data-icon="plus" data-iconpos="notext" data-ajax="false" data-transition="slide"></a>
                 <span class="clearfix"></span>
             </div>
             <table data-role="table" class="ui-table table-custom" id="tb_lunch">
@@ -263,7 +293,7 @@
 
             <div class="head-table-custom margin-top-25">
                 <div>อาหารเย็น</div>
-                <a href="food_type.php?type=2" data-role="button" data-icon="plus" data-iconpos="notext" data-ajax="false"></a>
+                <a href="food_type.php?type=2" data-role="button" data-icon="plus" data-iconpos="notext" data-ajax="false" data-transition="slide"></a>
                 <span class="clearfix"></span>
             </div>
             <table data-role="table" class="ui-table table-custom" id="tb_dinner">
@@ -301,7 +331,7 @@
          <div id="page_ex">
             <div class="head-table-custom">
                 <div>ออกกำลังกาย</div>
-                <a href="exercise.php" data-role="button" data-icon="plus" data-iconpos="notext" data-ajax="false"></a>
+                <a href="exercise.php" data-role="button" data-icon="plus" data-iconpos="notext" data-ajax="false" data-transition="slide"></a>
                 <span class="clearfix"></span>
             </div>
             <table data-role="table" class="ui-table table-custom" id="tb_ex">

@@ -64,6 +64,9 @@
 					<option>ขนมขบเคี้ยว</option>
 					<option>ผลไม้</option>
 					<option>เครื่องดื่ม</option>
+					<option>กับข้าว</option>
+					<option>อื่นๆ</option>
+
 				</select>
 				<a href="addfood.php" id="add" class="add-btn">
 					<span class="glyphicon glyphicon-plus" aria-hidden="true" style="margin-top:5px; font-size:14px;"></span> เพิ่มข้อมูล
@@ -76,6 +79,7 @@
 			            <th>#</th>
 
 			            <th>ชื่ออาหาร</th>
+			            <th class="numeric">หน่วย</th>
 			            <th class="numeric">ปริมาณ (กรัม)</th>
 			            <th class="numeric">ค่าพลังงาน (แคลอรี่)</th>
 			            <th class="numeric">ไขมัน (กรัม)</th>
@@ -89,6 +93,7 @@
 			            <th class="numeric">วิตามิน บี2 (%)</th>
 			            <th class="numeric">แคลเซียม (%)</th>
 			            <th class="numeric">เหล็ก (%)</th>
+			            <th class="numeric">แหล่งอ้างอิง</th>
 			            <th>บันทึก</th>
 			            <th>ลบ</th>
 		        	</tr>
@@ -108,7 +113,9 @@
 			            <td class="numeric" data-title="ชื่ออาหาร">
 			            	<input type="text" name="food_name" value="<?= $food["food_name"]; ?>">
 			            </td>
-
+			            <td class="numeric" data-title="หน่วย">
+			            	<input type="text" name="food_unit" value="<?= $food["food_unit"]; ?>" class="input-width">
+			            </td>
 			            <td class="numeric" data-title="ปริมาณ (กรัม)">
 			            	<input type="text" name="food_weight" value="<?= $food["food_weight"]; ?>" class="input-width">
 			            </td>
@@ -147,6 +154,9 @@
 			            </td>
 			            <td class="numeric" data-title="เหล็ก (%)">
 			            	<input type="text" name="food_iron" value="<?= $food["food_iron"]; ?>" class="input-width">
+			            </td>
+			            <td class="numeric" data-title="แหล่งอ้างอิง">
+			            	<input type="text" name="food_ref" value="<?= $food["food_ref"]; ?>" >
 			            </td>
 
 			            <td><button onClick="alert('ทำการบันทึกข้อมูลเรียบร้อย')" name="food_save" id="save" class="new-btn" type="submit">

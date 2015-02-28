@@ -2,7 +2,7 @@
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-	if ( $_POST["weight"] != "" && $_POST["height"] != "" && $_POST["birth"] != "" && $_POST["gender"] != "" && $_POST["activity"] != "" && $_POST["weight_lose"] != "" && $_POST["mode"] != "" ) {
+	if ( $_POST["weight"] != "" && $_POST["height"] != "" && $_POST["birth"] != "" && $_POST["gender"] != "" && $_POST["activity"] != "" && $_POST["weight_lose"] != "" && $_POST["mode"] != ""  && $_POST["date_register"] != "" ) {
 
 		$weight = intval($_POST["weight"]);
 		$height = intval($_POST["height"]);
@@ -11,8 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$mode = (double)$_POST["mode"];
 
 
-	    $sql = 'INSERT INTO user (user_id, user_weight, user_height, user_birthday, user_gender, user_frequency, user_goal, user_mode)
-	    		VALUES (null, ' . $weight . ', ' . $height . ', "' . $_POST["birth"] . '", "' . $_POST["gender"] . '", ' . $activity . ', ' . $goal . ', ' . $mode . ')';
+	    $sql = 'INSERT INTO user (user_id, user_weight, user_height, user_birthday, user_gender, user_frequency, user_goal, user_mode, user_register)
+	    		VALUES (null, ' . $weight . ', ' . $height . ', "' . $_POST["birth"] . '", "' . $_POST["gender"] . '", ' . $activity . ', ' . $goal . ', ' . $mode . ', "' . $_POST["date_register"] . '")';
 	    $result = mysqli_query($dbconnect,$sql);
 
 	    if ($result) {
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	
 }
 else {
-	echo "not post";
+	// echo "not post";
 }
 
 ?>

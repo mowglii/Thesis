@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	
 }
 else {
-	echo "not post";
+	// echo "not post";
 }
 
 

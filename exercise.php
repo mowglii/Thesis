@@ -1,8 +1,11 @@
 <?php 
+    
     require('dbconnect.php');
     require('dbfinduserid.php');
 
-    $sql = "SELECT* FROM exercise";
+    
+
+    $sql = "SELECT* FROM exercise WHERE user_id = 0";
     $result = mysqli_query($dbconnect,$sql);
 
 ?>
@@ -33,20 +36,20 @@
 
 <!-- PAGE_FOOD_TYPE -->
 <div id="exercise" data-role="page" data-theme="a">
-    <div data-role="panel" id="listpanel" data-display="push">
+    <!-- <div data-role="panel" id="listpanel" data-display="push">
         <ul data-role="listview" data-theme="d">
             <li><a href="index2.php" class="ui-btn ui-icon-home ui-btn-icon-left" data-transition="slide">หน้าแรก</a></li>
             <li><a href="input_weight.php" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-transition="slide">สมุดบันทึกน้ำหนัก</a></li>
             <li><a href="nutation.php" class="ui-btn ui-icon-pie ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
             <li><a href="setting.php" class="ui-btn ui-icon-edit ui-btn-icon-left" data-transition="slide">แก้ไขข้อมูลส่วนตัว</a></li>
-            <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li>
+            <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li> 
         </ul>
-    </div>            
+    </div> -->            
 
     <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
         <h1>ออกกำลังกาย</h1>
-        <a href="#" data-rel="back" data-icon="carat-l" data-iconpos="notext"></a>
-        <a href="#" data-rel="search" data-icon="plus" data-iconpos="notext"></a>
+        <a href="index2.php" data-icon="carat-l" data-iconpos="notext" data-transition="slide" data-ajax="false"></a>
+        <a href="exer_add.php" data-icon="plus" data-iconpos="notext"  data-transition="slide" data-ajax="false"></a>
         
     </div>
     <!-- End TOP MENU BAR -->
@@ -63,7 +66,7 @@ while($exercise = mysqli_fetch_array($result)) {
 
 ?>
                     <li data-exername="<?= $exercise["exer_name"]; ?>" data-exerkcal="<?= $exercise["exer_kcal"]; ?>" data-exerid="<?= $exercise["exer_id"]; ?>">
-                        <a href="#">
+                        <a href="#add_ex" class="add_exer_btn" data-rel="popup" data-position-to="window" data-transition="slideup">
                             <h1><?= $exercise["exer_name"]; ?></h1>
                             <span class="ui-li-aside"><p><?= $exercise["exer_kcal"]; ?> Kcal/min</p></span>
                             

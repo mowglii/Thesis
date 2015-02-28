@@ -1,3 +1,23 @@
+<?php
+	date_default_timezone_set('Asia/Bangkok');
+	$date_register = date('Y-m-d');
+
+	require('dbconnect.php');
+	$user_sql = 'SELECT * FROM user';
+    $result_user_sql = mysqli_query($dbconnect,$user_sql);
+    $check_user = false;
+    while($row = mysqli_fetch_array($result_user_sql)) {
+    	$check_user = true;
+    }
+
+    if ($check_user) {
+    	echo "<script>window.location='http://su13540215.2th.asia/work/thesis/index2.php';</script>";
+    }
+    
+
+?>
+
+
 <html>
 <head>
 	<meta charset="utf-8">
@@ -16,7 +36,7 @@
 
 </head>
 <body>
-<form action="index2.php" method="post" name="info" id="info-calculate" data-ajax="false" onsubmit="return validateForm()">
+<form action="index2.php" method="post" name="info" id="info-calculate" data-ajax="false">
 <!-- PAGE 1 -->
 	<!-- ==========HEADER========== -->	
 	<div data-role="page" id="page1" data-theme="a">
@@ -55,7 +75,7 @@
 				    	</div>
 					    
 					</fieldset>
-					<a href="#page2" data-role="button" data-iconpos="right" data-icon="carat-r" class="btn_next">ถัดไป</a>
+					<a href="#page2" data-role="button" data-iconpos="right" data-icon="carat-r" class="btn_next" data-transition="slide">ถัดไป</a>
 				</div>
 			</div>
 		</div>
@@ -69,7 +89,7 @@
 				
 		<div data-role="header" data-position="fixed" data-fullscreen="false" data-add-back-btn="true">				
 			<h1>ข้อมูลพื้นฐาน</h1>
-			<a href="#"  data-rel="back" data-icon="carat-l" data-theme="a" data-iconpos="notext"></a>
+			<a href="#"  data-rel="back" data-icon="carat-l" data-theme="a" data-iconpos="notext" data-transition="slide"></a>
 		</div>
 
 		<!-- ==========CONTENT========== -->	
@@ -80,7 +100,7 @@
 					<label class="center"><h1>คุณต้องการ <br>ลดน้ำหนักกี่กิโลกรัม ?</h1></label>
 					<input type="number" min="0" max="200" name="weight_lose" id="weight_lose" value="" placeholder="ตัวอย่าง : 20 " >
 
-					<a href="#page3" data-role="button" data-iconpos="right" data-icon="carat-r" class="btn_next">ถัดไป</a>
+					<a href="#page3" data-role="button" data-iconpos="right" data-icon="carat-r" class="btn_next" data-transition="slide">ถัดไป</a>
 			</div>	
 		</div>
 	</div>
@@ -93,7 +113,7 @@
 				
 		<div data-role="header" data-position="fixed" data-fullscreen="false" data-add-back-btn="true">				
 			<h1>ข้อมูลพื้นฐาน</h1>
-			<a href="#"  data-rel="back" data-icon="carat-l" data-theme="a" data-iconpos="notext"></a>
+			<a href="#"  data-rel="back" data-icon="carat-l" data-theme="a" data-iconpos="notext" data-transition="slide"></a>
 		</div>
 
 		<!-- ==========CONTENT========== -->	
@@ -121,7 +141,7 @@
 
 					</fieldset>
 
-					<a href="#page4" id="calulate_btn" data-role="button" data-iconpos="right" data-icon="carat-r" class="btn_next">ถัดไป</a>
+					<a href="#page4" id="calulate_btn" data-role="button" data-iconpos="right" data-icon="carat-r" class="btn_next" data-transition="slide">ถัดไป</a>
 			</div>	
 		</div>
 	</div>
@@ -135,7 +155,7 @@
 				
 		<div data-role="header" data-position="fixed" data-fullscreen="false" data-add-back-btn="true">				
 			<h1>ข้อมูลพื้นฐาน</h1>
-			<a href="#"  data-rel="back" data-icon="carat-l" data-theme="a" data-iconpos="notext"></a>
+			<a href="#"  data-rel="back" data-icon="carat-l" data-theme="a" data-iconpos="notext" data-transition="slide"></a>
 		</div>
 
 		<!-- ==========CONTENT========== -->	
@@ -168,7 +188,8 @@
 
 					</fieldset>
 
-					<button type="submit" data-iconpos="right" data-icon="check" class="btn_next" id="calulate_btn">สำเร็จ</button>
+					<input type="type" name="date_register" value="<?= $date_register ?>" style="display:none;">
+					<button type="button" onclick="validateForm()" data-iconpos="right" data-icon="check" class="btn_next" id="calulate_btn">สำเร็จ</button>
 			</div>	
 		</div>
 	</div>
@@ -177,25 +198,61 @@
 
 <script>
 function validateForm() {
-	var weight = document.forms["info"]["weight"].value;
-	var height = document.forms["info"]["height"].value;
-	var birth = document.forms["info"]["birth"].value;
-	var gender = document.forms["info"]["gender"].value;
-	var weight_lose = document.forms["info"]["weight_lose"].value;
-	var activity = document.forms["info"]["activity"].value;
-	var mode = document.forms["info"]["mode"].value;
+	var weight = document.getElementById("weight").value;
+	var height = document.getElementById("height").value;
+	var birth = document.getElementById("birth").value;
+	var weight_lose = document.getElementById("weight_lose").value;
+	var sex = "";
+	var frequency = 0;
+	var mode = 0;
+	
+	if(document.getElementById("female").checked){
+		sex = document.getElementById("female").value;
+	}
+	else if(document.getElementById("male").checked){
+		sex = document.getElementById("male").value;
+	}
 
-	if (weight == null || weight == "" || height == null || height == "" 
-		|| birth == null || birth == "" || gender == null || gender == "" 
-		|| weight_lose == null || weight_lose == "" || activity == null || activity == "" 
-		|| mode == null || mode == "" ) {
-	    alert("กรุณากรอกข้อมูลให้ครบถ้วน");
-	    return false;
+	if(document.getElementById("no_ex").checked){
+		frequency = document.getElementById("no_ex").value;
+	}
+	else if(document.getElementById("light_ex").checked){
+		frequency = document.getElementById("light_ex").value;
+	}
+	else if(document.getElementById("moderate_ex").checked){
+		frequency = document.getElementById("moderate_ex").value;
+	}
+	else if(document.getElementById("regularly_ex").checked){
+		frequency = document.getElementById("regularly_ex").value;
+	}
+	else if(document.getElementById("heavy_ex").checked){
+		frequency = document.getElementById("heavy_ex").value;
+	}
+
+	if(document.getElementById("mode_easy").checked){
+		mode = document.getElementById("mode_easy").value;
+	}
+	else if(document.getElementById("mode_medium").checked){
+		mode = document.getElementById("mode_medium").value;
+	}
+	else if(document.getElementById("mode_hard").checked){
+		mode = document.getElementById("mode_hard").value;
+	}
+	else if(document.getElementById("mode_harder").checked){
+		mode = document.getElementById("mode_harder").value;
 	}
 
 
 
+
+	if (weight != "" && height != "" && birth != "" && weight_lose != "" && sex != "" && frequency != 0 && mode != 0) {
+		document.getElementById("info-calculate").submit();
 	}
+	else {
+		alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+	}
+
+}
 
 document.getElementById("calulate_btn").onclick = function(){
 	// Get value

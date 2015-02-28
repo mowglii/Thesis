@@ -3,15 +3,13 @@
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["food_type2"])) {
 
 	if ( $_POST["food_type2"] != "" 
-
 		&& $_POST["food_name2"] != "" 
-		&& $_POST["food_unit2"] != ""
-		&& $_POST["food_weight2"] != "" 
-		&& $_POST["food_kcal2"] != "" ) {
+		&& $_POST["food_kcal2"] != ""
+		&& $_POST["user_id2"] != "") {
 
 		$food_type = $_POST["food_type2"];
 		$food_name = $_POST["food_name2"];
-
+		$food_unit = $_POST["food_unit2"];
 		$food_weight = intval($_POST["food_weight2"]);
 		$food_kcal = intval($_POST["food_kcal2"]);
 		$food_fat = intval($_POST["food_fat2"]);
@@ -24,15 +22,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["food_type2"])) {
 		$food_vitb1 = intval($_POST["food_vitb12"]);
 		$food_vitb2 = intval($_POST["food_vitb22"]);
 		$food_iron = intval($_POST["food_iron2"]);
-		$food_unit = $_POST["food_unit2"];
-		$food_ref = $_POST["food_ref2"];
+		$user_id = intval($_POST["user_id2"]);
 
 	    $add_food_sql = 'INSERT INTO food ( food_type, food_name, food_weight, food_kcal, food_fat, food_cholesterol, food_protein, 
-	    	food_carbohydrate, food_sugar, food_salt, food_vita, food_vitb1, food_vitb2, food_iron, food_unit, food_ref) 
+	    	food_carbohydrate, food_sugar, food_salt, food_vita, food_vitb1, food_vitb2, food_iron, user_id ,food_unit) 
 
 	         VALUES ("' . $food_type . '", "' . $food_name . '", ' . $food_weight . ', ' . $food_kcal . ', ' . $food_fat . ',
 	         	' . $food_cholesterol . ',' . $food_protein . ',' . $food_carbohydrate . ',' . $food_sugar . ',' . $food_salt . ',' . $food_vita . ',
-	         	' . $food_vitb1 . ',' . $food_vitb2 . ',' . $food_iron .', "' . $food_unit . '" ,"' . $food_ref .'" )';
+	         	' . $food_vitb1 . ',' . $food_vitb2 . ',' . $food_iron . ',' . $user_id . ', "' . $food_unit . '" )';
 
 
 	    $result_add_food = mysqli_query($dbconnect,$add_food_sql);
@@ -40,6 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["food_type2"])) {
 
 	    if ($result_add_food) {
 		    // echo "Saved successfully";
+		    $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+		    echo "<script>window.location='" .$actual_link. "';</script>";
 		} else {
 		    // echo "Error: " . $sql . "<br>" . mysqli_error($result_add_food);
 		}

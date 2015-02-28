@@ -37,9 +37,9 @@
 <div id="food_detail" data-role="page" data-theme="a">
     <div data-role="panel" id="listpanel" data-display="push">
         <ul data-role="listview" data-theme="d">
-            <li><a href="index2.php" class="ui-btn ui-icon-home ui-btn-icon-left">หน้าแรก</a></li>
-            <li><a href="graphweek.php" class="ui-btn ui-icon-calendar ui-btn-icon-left">สมุดบันทึกน้ำหนัก</a></li>
-            <li><a href="nutatuion.php" class="ui-btn ui-icon-bullets ui-btn-icon-left">ข้อมูลสารอาหาร</a></li>
+            <li><a href="index2.php" class="ui-btn ui-icon-home ui-btn-icon-left" data-transition="slide">หน้าแรก</a></li>
+            <li><a href="graphweek.php" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-transition="slide">สมุดบันทึกน้ำหนัก</a></li>
+            <li><a href="nutatuion.php" class="ui-btn ui-icon-bullets ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
             <li><a href="setting.php" class="ui-btn ui-icon-edit ui-btn-icon-left" data-transition="slide">แก้ไขข้อมูลส่วนตัว</a></li>
             <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li>
         </ul>
@@ -47,7 +47,7 @@
 
     <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
         <h1>ข้อมูลอาหาร</h1>
-        <a href="#" data-rel="back" data-icon="carat-l" data-iconpos="notext"></a>
+        <a href="#" data-rel="back" data-icon="carat-l" data-iconpos="notext" data-transition="slide"></a>
         
     </div>
     <!-- End TOP MENU BAR -->
@@ -131,15 +131,18 @@ while($food = mysqli_fetch_array($result)) {
                 </tbody>
             </table>
         </div>
-<?php
-    
-    }
-    //end while
 
-
-?>
+       <div data-role="footer" class="graph-footer" data-position="fixed">
+            <p style="text-align:center">ข้อมูลอ้างอิง : <?= $food["food_ref"]; ?></p>
+        </div> 
+    <?php
         
+        }
+        //end while
+    ?>
 </div>
+
+
 
 </body>
 </html>

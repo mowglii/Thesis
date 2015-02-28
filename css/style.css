@@ -15,7 +15,7 @@
 
 body {
 	font-size: 16px;
-	
+
 }
 body,
 input,
@@ -95,6 +95,12 @@ input, #page_ex .ui-input-search {
 	background: #fe4e50 !important;
 	border: 1px solid #fe4e50;
 }
+#page_ex .ui-icon-plus:hover {
+	background: #fe6161 !important;
+	border: 1px solid #fe6161;
+	text-shadow: 0 0 0 0;
+}
+
 #page_ex .ui-icon-delete {
 	background: #f05053 !important;
 }
@@ -161,7 +167,7 @@ input, #page_ex .ui-input-search {
 
 }
 #food_type h1 {
-	text-shadow: 0px 0px #FF0000;
+	
 }
 #food_type .fff.ui-listview>.ui-li-has-thumb>.ui-btn, 
 #food_type .fff.ui-listview>.ui-li-static.ui-li-has-thumb{
@@ -275,13 +281,88 @@ input, #page_ex .ui-input-search {
 #add_etc input {
 	background-color: #eee;
 }
-
-
+#add_meal ,
+#add_sweet ,
+#add_snack ,
+#add_fruit ,
+#add_drink ,
+#add_etc  {
+	min-width: 280px;
+}
+#add_meal .ui-icon-delete , 
+#add_sweet .ui-icon-delete ,
+#add_snack .ui-icon-delete ,
+#add_fruit .ui-icon-delete ,
+#add_drink .ui-icon-delete ,
+#add_etc .ui-icon-delete {
+	border: 2px solid #fff;
+}
 
 .ui-listview>.ui-li-has-thumb>.ui-btn, 
 .ui-listview>.ui-li-static.ui-li-has-thumb {
 	padding-left: 5em; 
 
+}
+
+
+/*----------------------ADD FOOD----------------------------*/
+
+#food_add {
+	background: #fff;
+	margin: 0 auto;
+}
+
+#food_add .ui-collapsible-content.ui-body-inherit {
+	background: #fff;
+}
+#nuta_food {
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+
+#add button,
+#add button:visited {
+	background: #fe4e50;
+}
+#add button:hover {
+	background: #fe6161;
+}
+
+
+/*----------------NUTATION--------------------*/
+
+#nuta_head {
+	background: #333;
+
+	color: #fff;
+	width: 100%
+
+}
+#nuta_head .ui-li-aside {
+	position: absolute;
+	right: 1em;
+	margin: 0;
+	text-align: right;
+	float: right;
+}
+
+
+#nuta_table .bg-w {
+   background-color: #fff;
+}
+
+.nuta-box2 {
+	background: #3d3d3d;
+	float: right;
+	width: 50%;
+	text-align: right;
+
+}
+.nuta-box1 {
+	background: #333;
+	float: left;
+	width: 50%;
+	text-align: left;
 }
 
 /*---------------Table--------------------------*/
@@ -357,11 +438,35 @@ input, #page_ex .ui-input-search {
 }
 
 
+#tb_detail.table-custom tbody {
+	border-bottom: 10px solid #fff;
+	border-top: 5px solid #0595b3 ;
+}
+#tb_detail.table-custom tbody tr:nth-child(even) {
+   background-color: #e6fcff;
+}
+
+
 
 
 
 /*-------------------INDEX INDEX2------------------------*/
 
+.ui-grid-b {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background: #eee;
+	text-align: center;
+	color: #333;
+}
+.ui-block-a.min{ 
+	margin-top: 5px;
+	text-align: right;
+}
+.ui-block-c.max{ 
+	margin-top: 5px;
+	text-align: left;
+}
 
 .btn_next {
 	margin-top: 30px;
@@ -467,7 +572,7 @@ input, #page_ex .ui-input-search {
 	text-align: center;
 	z-index: 2;
 	color: #fff;
-	margin-top: 0px;
+	margin-top: -2px;
 }
 
 
@@ -537,7 +642,12 @@ h1 {
 .margin-top-25 {
 	margin-top: 25px;
 }
-
+.margin-left-25{
+	margin-left: 25px;
+}
+.margin-right-25{
+	margin-right: 25px;
+}
 .margin-left-05{
 	margin-left: .5em;
 }
@@ -587,6 +697,8 @@ h1 {
 
 #input-weight-wrapper {
 	background: #fff;
+	padding: 0px 20px 20px 20px;
+	margin-bottom: 20px;
 
 }
 #weight-now .ui-input-text.ui-body-inherit {
@@ -646,7 +758,7 @@ h1 {
 /*----------------FOOTER----------------------------*/
 .graph-footer {
 	background: #fc4e50 !important;
-	text-shadow: 0 0 0 #eee ;
+	
 }
 .graph-footer div {
 	float: left;
@@ -672,7 +784,7 @@ h1 {
 /*-------------- PROGRESS BAR -------------*/
 
 .progressbar.progressbar-height {
-	height: 20px;
+	height: 15px;
 }
 
 /*

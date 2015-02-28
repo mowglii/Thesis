@@ -4,6 +4,8 @@
     require('dbconnect.php');
     require('dbfinduserid.php');
     require ('dbshownutation.php');
+
+
     
 ?>
 
@@ -43,7 +45,7 @@
             <li><a href="input_weight.php" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-transition="slide">สมุดบันทึกน้ำหนัก</a></li>
             <li><a href="nutation.php" class="ui-btn ui-icon-pie ui-btn-icon-left" data-transition="slide">ข้อมูลสารอาหาร</a></li>
             <li><a href="setting.php" class="ui-btn ui-icon-edit ui-btn-icon-left" data-transition="slide">แก้ไขข้อมูลส่วนตัว</a></li>
-            <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li>
+            <!-- <li><a href="#" class="ui-btn ui-icon-lock ui-btn-icon-left" data-transition="slide">ลงชื่อออก</a></li> -->
         </ul>
     </div>
     <div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="a">
@@ -55,88 +57,70 @@
 
 
 
-    <div data-role="content">
+    <div >
+
+        <div id="nuta_head">
+        <?php
+
+            while($nutation = mysqli_fetch_array($result_nuta3)) {
+
+        ?>     
+            <div class="nuta-box1"><h1 class="margin-left-25" >ค่าพลังงาน </h1></div>
+            <div class="nuta-box2"><h1 class="margin-right-25"><?= $nutation["sum(food.food_kcal)"]; ?> Kcal</h1></div>
+             
     
-             <div class="head-table-custom">
-                <div>ข้อมูลสารอาหาร</div>
-                <span class="clearfix"></span>
-            </div>
-            <table data-role="table" class="ui-table table-custom" id="tb_each">
-                <thead><tr></tr></thead>
-                <tbody>
+        <?php
+            
+            }
+            //end while
+        ?>
+
+        </div>
+    
+        <div data-theme="c" style="margin-top:0px">
+            
+            <ul data-role="listview" id="nuta_table">
     <?php
 
         while($nutation = mysqli_fetch_array($result_nuta)) {
 ?>                  
-                    <tr>
-                        <td class="left">ปริมาณ (ก.)</td>
-
-                        <td class="right"><?= $nutation["sum(food.food_weight)"]; ?></td>
-                    </tr>
-                    <tr>
-                        <td class="left">ค่าพลังงาน (แคลอรี่)</td>
-
-                        <td class="right"><?= $nutation["sum(food.food_kcal)"]; ?></td>
-                    </tr>
-                    <tr>
-                        <td class="left">ไขมัน (ก.)</td>
-
-                        <td class="right"><?= $nutation["sum(food.food_fat)"]; ?></td>
-                    </tr>
-                    <tr>
-                        <td class="left">โคเลสเตอรอล (มก.)</td>
-     
-                        <td class="right"><?= $nutation["sum(food.food_cholesterol)"]; ?></td>
-                    </tr>
-                    <tr>
-                        <td class="left">โปรตีน (ก.)</td>
-     
-                        <td class="right"><?= $nutation["sum(food.food_protein)"]; ?></td>
-                    </tr>
-                    <tr>
-                        <td class="left">คาร์โบไฮเดรต (ก.)</td>
-     
-                        <td class="right"><?= $nutation["sum(food.food_carbohydrate)"]; ?></td>
-                    </tr>
-                    <tr>
-                        <td class="left">น้ำตาล (ก.)</td>
-     
-                        <td class="right"><?= $nutation["sum(food.food_sugar)"]; ?></td>
-                    </tr>
-                    <tr>
-                        <td class="left">โซเดียม (มก.)</td>
-     
-                        <td class="right"><?= $nutation["sum(food.food_salt)"]; ?></td>
-                    </tr>
-                    <tr>
-                        <td class="left">วิตามินเอ (%)</td>
-     
-                        <td class="right"><?= $nutation["sum(food.food_vita)"]; ?></td>
-                    </tr>
-
-                    <tr>
-                        <td class="left">วิตามินบี1 (%)</td>
-     
-                        <td class="right"><?= $nutation["sum(food.food_vitb1)"]; ?></td>
-                    </tr>
-                    <tr>
-                        <td class="left">วิตามินบี2 (%)</td>
-     
-                        <td class="right"><?= $nutation["sum(food.food_vitb2)"]; ?></td>
-                    </tr>
-                    <tr>
-                        <td class="left">แคมเซียม (%)</td>
-     
-                        <td class="right"><?= $nutation["sum(food.food_calcium)"]; ?></td>
-                    </tr>
-                    <tr>
-                        <td class="left">เหล็ก (%)</td>
-     
-                        <td class="right"><?= $nutation["sum(food.food_iron)"]; ?></td>
-                    </tr>
-                </tbody>
-            </table>
+                
+                <li  class="bg-w">ปริมาณ (ก.)
+                    <span class="ui-li-aside"><?= $nutation["sum(food.food_weight)"]; ?> </span>
+                </li>
+                <li>ไขมัน (ก.)
+                    <span class="ui-li-aside"><?= $nutation["sum(food.food_fat)"]; ?> </span>
+                </li>
+                <li  class="bg-w">โคเลสเตอรอล (มก.)
+                    <span class="ui-li-aside"><?= $nutation["sum(food.food_protein)"]; ?> </span>
+                </li>
+                <li>โปรตีน (ก.)
+                    <span class="ui-li-aside"><?= $nutation["sum(food.food_carbohydrate)"]; ?> </span>
+                </li>
+                <li  class="bg-w">คาร์โบไฮเดรต (ก.)
+                    <span class="ui-li-aside"><?= $nutation["sum(food.food_sugar)"]; ?> </span>
+                </li>
+                <li>น้ำตาล (ก.)
+                    <span class="ui-li-aside"><?= $nutation["sum(food.food_salt)"]; ?> </span>
+                </li>
+                <li  class="bg-w">วิตามินเอ (%)
+                    <span class="ui-li-aside"><?= $nutation["sum(food.food_vita)"]; ?> </span>
+                </li>
+                <li>วิตามินบี1 (%)
+                    <span class="ui-li-aside"><?= $nutation["sum(food.food_vitb1)"]; ?> </span>
+                </li>
+                <li  class="bg-w">วิตามินบี2 (%)
+                    <span class="ui-li-aside"><?= $nutation["sum(food.food_vitb2)"]; ?> </span>
+                </li>
+                <li>แคมเซียม (%)
+                    <span class="ui-li-aside"><?= $nutation["sum(food.food_calcium)"]; ?> </span>
+                </li>
+                <li  class="bg-w">เหล็ก (%)
+                    <span class="ui-li-aside"><?= $nutation["sum(food.food_iron)"]; ?> </span>
+                </li>
+            </ul>
         </div>
+        
 <?php
     
     }
@@ -144,8 +128,11 @@
 
 
 ?>
-        </div>  
+    </div>  
 
+
+
+    
 
 
 </div>

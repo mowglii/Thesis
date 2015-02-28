@@ -26,5 +26,6 @@
   }
   $result_nuta1  = mysqli_query($dbconnect,$nuta_sql);
   $result_nuta2  = mysqli_query($dbconnect,$nuta_sql);
+  $result_nuta3  = mysqli_query($dbconnect,$nuta_sql);
 
 ?>

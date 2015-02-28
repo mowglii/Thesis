@@ -42,8 +42,12 @@ body.login-wrapper {
 }
 
 #content-form input.width100, 
-#content-form2 input.width100 {
+#content-form2 input.width100,
+#content-form select.width100 {
 	width: 100%;
+}
+#content-form select {
+	padding: 3px 0;
 }
 #content-form .form-coloum,
 #content-form2 .form-coloum {
@@ -175,7 +179,9 @@ button#delete.new-btn:hover {
 .add-btn#add:visited {
 	background: #fe4e50;
 	color: #fff;
-	padding: 5px 15px;
+	padding: 5px 50px;
+	border: 0px solid #fff;
+	width: 100%;
 }
 .add-btn#add:hover {
 	text-decoration: none;
@@ -209,7 +215,9 @@ button#delete.new-btn:hover {
 	text-decoration: none;
 }
 
-
+button.center {
+	text-align: right;
+}
 
 
 /*-----------POPUP----------------*/
